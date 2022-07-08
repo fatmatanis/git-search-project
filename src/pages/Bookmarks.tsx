@@ -13,7 +13,7 @@ import SearchRepoList from "../components/RepositoryLayout/SearchRepoList";
 const Bookmarks: React.FC<IBookmarkListProps> = ({
   handleRepositoryDetail,
 }) => {
-  const getRepoDetail = (login: string, name: string)=> {
+  const getRepoDetail = (login: string, name: string) => {
     handleRepositoryDetail(login, name);
   };
 
