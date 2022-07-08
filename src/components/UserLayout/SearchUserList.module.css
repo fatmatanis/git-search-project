@@ -1,0 +1,19 @@
+.box {
+  display: flex;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+.avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.login {
+  color: #375f9d;
+}

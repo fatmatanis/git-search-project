@@ -1,0 +1,26 @@
+.button {
+  background-color: white;
+  height: 46px;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+}
+.button:focus {
+  background-color: #d9e8ff;
+}
+.icon {
+  padding-left: 16px;
+  width: auto;
+}
+
+.primary {
+  flex-direction: row;
+  flex-grow: 1;
+  width: auto;
+}
+
+.count {
+  flex-direction: row-reverse;
+  padding-right: 16px;
+  width: auto;
+}

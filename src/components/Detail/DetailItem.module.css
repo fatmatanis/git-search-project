@@ -1,0 +1,15 @@
+.icon {
+  margin: 4px 8px 4px 0px;
+  transform: scale(85%);
+}
+.text {
+  flex-grow: 1;
+  align-self: "flex-start";
+  margin: 4px 8px 4px 0px;
+}
+
+.number {
+  color: #2c98f0;
+  font-weight: bold;
+  margin: 4px 0px 4px 0px;
+}

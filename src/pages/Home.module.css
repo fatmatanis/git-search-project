@@ -1,0 +1,22 @@
+.search-icon {
+  color: #85b0f2;
+  height: auto;
+  font-size: 90px !important;
+}
+
+.screen-search {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15%;
+}
+
+p {
+  margin-top: 0;
+  font-family: "Roboto";
+  color: #85b0f2;
+  font-size: larger;
+  text-align: center;
+}
