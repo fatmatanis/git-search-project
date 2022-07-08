@@ -8,32 +8,29 @@ import { IUsers } from "../../types/types";
 import "@fontsource/roboto/400.css";
 import { Link } from "react-router-dom";
 
-const SearchUserList: React.FC<IUsers> = (props) => {
+const SearchUserList: React.FC<IUsers> = ({
+  handleUserDetail,
+  login,
+  avatar_url,
+  id,
+}) => {
   const getUser = () => {
-    props.handleUserDetail(props.login);
+    handleUserDetail(login);
   };
 
   return (
     <>
       <Box className={classes.box}>
-        <img
-          src={props.avatar_url}
-          alt="User Avatar"
-          className={classes.avatar}
-        />
+        <img src={avatar_url} alt="User Avatar" className={classes.avatar} />
         <Box>
-          <Link
-            to={`/user/${props.id}`}
-            className={classes.link}
-            onClick={getUser}
-          >
+          <Link to={`/user/${id}`} className={classes.link} onClick={getUser}>
             <Typography
               variant="subtitle1"
               gutterBottom
               component="div"
               className={classes.login}
             >
-              {props.login}
+              {login}
             </Typography>
           </Link>
         </Box>
