@@ -10,8 +10,8 @@ import { Link } from "react-router-dom";
 
 const SearchUserList: React.FC<IUsers> = ({
   handleUserDetail,
-  avatar_url,
   login,
+  avatar_url,
   id,
 }) => {
   const getUser = () => {
