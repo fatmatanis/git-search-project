@@ -11,17 +11,17 @@ const UserMainView: React.FC<{
   searchUsersResults: IUsers[];
   userCount?: number;
   handleUserDetail: (arg0: string) => void;
-}> = (props) => {
+}> = ({ handleUserDetail, userCount, searchUsersResults }) => {
   const getUserDetail = (login: string) => {
-    props.handleUserDetail(login);
+    handleUserDetail(login);
   };
 
   return (
     <Box component="main" className={classes.result}>
       <Typography variant="h5" gutterBottom component="div">
-        {`${props.userCount} Users Results`}
+        {`${userCount} Users Results`}
       </Typography>
-      {props.searchUsersResults.map((item: IUsers) => {
+      {searchUsersResults.map((item: IUsers) => {
         return (
           <SearchUserList
             key={item.id}
