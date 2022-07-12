@@ -23,6 +23,8 @@ import {
 import classes from "./MainLayout.module.css";
 import { BookmarkBorderSharp, Note, TagFaces } from "@mui/icons-material";
 import { Box, Divider } from "@mui/material";
+import Loading from "../Loading";
+import Error from "../Error";
 
 const MainLayout = () => {
   const [searchText, setSearchText] = useState("");
@@ -42,30 +44,35 @@ const MainLayout = () => {
   const [userDetail, setUserDetail] = useState<IUsersDetail>();
   const [userRepos, setUserRepos] = useState<Array<IRepository>>([]);
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [httpError, setHttpError] = useState();
+
   const navigate = useNavigate();
 
   const { bookmarkList } = useContext(BookmarkContext);
 
   const getRepo = async () => {
-    return await axios(
+    return await axios.get(
       `https://api.github.com/search/repositories?q=${searchText}`
     );
   };
 
   const getUsers = async () => {
-    return await axios(`https://api.github.com/search/users?q=${searchText}`);
+    return await axios.get(
+      `https://api.github.com/search/users?q=${searchText}`
+    );
   };
 
   const getRepoDetail = async (owner: string, repo: string) => {
-    return await axios(`https://api.github.com/repos/${owner}/${repo}`);
+    return await axios.get(`https://api.github.com/repos/${owner}/${repo}`);
   };
 
   const getUserDetail = async (user: string) => {
-    return await axios(`https://api.github.com/users/${user}`);
+    return await axios.get(`https://api.github.com/users/${user}`);
   };
 
   const getUserRepos = async (username: string) => {
-    return await axios(`https://api.github.com/users/${username}/repos`);
+    return await axios.get(`https://api.github.com/users/${username}/repos`);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,44 +82,85 @@ const MainLayout = () => {
     event: React.KeyboardEvent<HTMLInputElement>
   ) => {
     if (event.key === "Enter" && searchText) {
-      getRepo().then((res) => {
-        console.log("api result", res);
-        setSearchRepoResult(res.data.items);
-        setRepoCount(res.data);
-        navigate("results/repositories");
-      });
-      getUsers().then((res) => {
-        console.log("users result", res);
-        setSearchUsers(res.data.items);
-        setUsersCount(res.data);
-      });
+      setIsLoading(true);
+      getRepo()
+        .then((res) => {
+          console.log("api result", res);
+          setSearchRepoResult(res.data.items);
+          setRepoCount(res.data);
+          navigate("results/repositories");
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          setHttpError(error);
+        });
+      getUsers()
+        .then((res) => {
+          console.log("users result", res);
+          setSearchUsers(res.data.items);
+          setUsersCount(res.data);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          setHttpError(error);
+        });
     }
   };
   const getRepositoryDetail = async (
     selectedOwner: string,
     selectedRepo: string
   ) => {
-    getRepoDetail(selectedOwner, selectedRepo).then((res) => {
-      console.log("repo detail", res);
-      setRepoDetail(res.data);
-    });
+    setIsLoading(true);
+    getRepoDetail(selectedOwner, selectedRepo)
+      .then((res) => {
+        console.log("repo detail", res);
+        setRepoDetail(res.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        setHttpError(error);
+      });
   };
 
   const getUserDetailResult = async (selectedUser: string) => {
-    getUserDetail(selectedUser).then((res) => {
-      console.log("user detail", res);
-      setUserDetail(res.data);
-    });
-    getUserRepos(selectedUser).then((res) => {
-      console.log("user repos", res);
-      setUserRepos(res.data);
-    });
+    setIsLoading(true);
+    getUserDetail(selectedUser)
+      .then((res) => {
+        console.log("user detail", res);
+        setUserDetail(res.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        setHttpError(error);
+      });
+    getUserRepos(selectedUser)
+      .then((res) => {
+        console.log("user repos", res);
+        setUserRepos(res.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        setHttpError(error);
+      });
   };
 
   const foundBookmark = bookmarkList.filter((repo) =>
     repo.fullName.toLowerCase().includes(searchText)
   );
   console.log("hey", foundBookmark);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (httpError) {
+    return <Error />;
+  }
 
   return (
     <Fragment>
