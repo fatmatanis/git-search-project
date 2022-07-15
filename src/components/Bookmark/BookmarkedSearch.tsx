@@ -17,7 +17,7 @@ const BookmarkedSearch: React.FC<IBookmarkedSearchProps> = ({
   const { bookmarkList } = useContext(BookmarkContext);
 
   const foundBookmark = bookmarkList.filter((repo) =>
-    repo.fullName.toLowerCase().includes(text)
+    repo.fullName.toLowerCase().includes(text.toLowerCase())
   );
   console.log("hey", foundBookmark);
 

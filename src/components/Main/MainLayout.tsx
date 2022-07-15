@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment, RefObject, useContext, useState } from "react";
 import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
 
 import Header from "../HeaderLayout/Header";
@@ -25,6 +25,7 @@ import { BookmarkBorderSharp, Note, TagFaces } from "@mui/icons-material";
 import { Box, Divider } from "@mui/material";
 import Loading from "../Loading";
 import Error from "../Error";
+import { useRef } from "react";
 
 const MainLayout = () => {
   const [searchText, setSearchText] = useState("");
@@ -150,7 +151,7 @@ const MainLayout = () => {
   };
 
   const foundBookmark = bookmarkList.filter((repo) =>
-    repo.fullName.toLowerCase().includes(searchText)
+    repo.fullName.toLowerCase().includes(searchText.toLowerCase())
   );
   console.log("hey", foundBookmark);
 
@@ -194,12 +195,14 @@ const MainLayout = () => {
                     icon={<TagFaces />}
                     primary={"Users"}
                   />
-                  <SideListItem
-                    count={foundBookmark.length}
-                    to="bookmarked"
-                    icon={<BookmarkBorderSharp />}
-                    primary={"Bookmarked"}
-                  />
+                  {foundBookmark.length > 0 && (
+                    <SideListItem
+                      count={foundBookmark.length}
+                      to="bookmarked"
+                      icon={<BookmarkBorderSharp />}
+                      primary={"Bookmarked"}
+                    />
+                  )}
                   <Divider />
                 </Card>
                 <Outlet />
