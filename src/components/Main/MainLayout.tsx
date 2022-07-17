@@ -129,7 +129,6 @@ const MainLayout = () => {
       .then((res) => {
         console.log("user detail", res);
         setUserDetail(res.data);
-        setIsLoading(false);
       })
       .catch((error) => {
         setIsLoading(false);
@@ -260,7 +259,7 @@ const MainLayout = () => {
             />
           )}
 
-          {userDetail && (
+          {userDetail && userRepos && (
             <Route
               path="user/:userId"
               element={
