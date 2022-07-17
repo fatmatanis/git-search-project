@@ -1,4 +1,4 @@
-import React, { Fragment, RefObject, useContext, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
 
 import Header from "../HeaderLayout/Header";
@@ -25,7 +25,6 @@ import { BookmarkBorderSharp, Note, TagFaces } from "@mui/icons-material";
 import { Box, Divider } from "@mui/material";
 import Loading from "../Loading";
 import Error from "../Error";
-import { useRef } from "react";
 
 const MainLayout = () => {
   const [searchText, setSearchText] = useState("");
@@ -101,10 +100,8 @@ const MainLayout = () => {
           console.log("users result", res);
           setSearchUsers(res.data.items);
           setUsersCount(res.data);
-          setIsLoading(false);
         })
         .catch((error) => {
-          setIsLoading(false);
           setHttpError(error);
         });
     }
