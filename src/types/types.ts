@@ -51,12 +51,12 @@ export interface IRepoDetailsProps {
   name: string;
   id: number;
   fullName: string;
-  watch?: number;
-  star?: number;
-  fork?: number;
-  branch?: number;
-  issues?: number;
-  pullRequest?: number;
+  watch: number;
+  star: number;
+  fork: number;
+  branch: number;
+  issues: number;
+  pullRequest: number;
   description: string;
   link?: string;
 }

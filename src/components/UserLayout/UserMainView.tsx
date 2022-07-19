@@ -9,7 +9,7 @@ import "@fontsource/roboto/400.css";
 
 const UserMainView: React.FC<{
   searchUsersResults: IUsers[];
-  userCount: number;
+  userCount: string;
   handleUserDetail: (arg0: string) => void;
 }> = ({ handleUserDetail, userCount, searchUsersResults }) => {
   const getUserDetail = (login: string) => {

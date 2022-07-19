@@ -5,11 +5,11 @@
 .text {
   flex-grow: 1;
   align-self: "flex-start";
-  margin: 4px 8px 4px 0px;
+  margin: 4px 8px 4px 0px !important;
 }
 
 .number {
   color: #2c98f0;
-  font-weight: bold;
-  margin: 4px 0px 4px 0px;
+  font-weight: bold !important;
+  margin: 4px 0px 4px 0px !important;
 }
