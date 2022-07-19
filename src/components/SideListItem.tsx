@@ -8,10 +8,9 @@ import ListItemText from "@mui/material/ListItemText";
 import { Link, LinkProps } from "react-router-dom";
 
 interface ListItemLinkProps {
-  icon?: React.ReactElement;
+  icon: React.ReactElement;
   primary: string;
-  count?: number;
-  style?: React.CSSProperties;
+  count: string;
   to: string;
 }
 const SideListItem: React.FC<ListItemLinkProps> = (props) => {

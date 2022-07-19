@@ -180,20 +180,20 @@ const MainLayout = () => {
               <>
                 <Card>
                   <SideListItem
-                    count={repoTotalCount.total_count}
+                    count={repoTotalCount.total_count.toLocaleString()}
                     to="repositories"
                     icon={<Note />}
                     primary={"Repositories"}
                   />
                   <SideListItem
-                    count={usersCount.total_count}
+                    count={usersCount.total_count.toLocaleString()}
                     to="user"
                     icon={<TagFaces />}
                     primary={"Users"}
                   />
                   {foundBookmark.length > 0 && (
                     <SideListItem
-                      count={foundBookmark.length}
+                      count={foundBookmark.length.toLocaleString()}
                       to="bookmarked"
                       icon={<BookmarkBorderSharp />}
                       primary={"Bookmarked"}
@@ -209,7 +209,7 @@ const MainLayout = () => {
               path="repositories"
               element={
                 <RepoMainView
-                  repoCount={repoTotalCount.total_count}
+                  repoCount={repoTotalCount.total_count.toLocaleString()}
                   searchRepoResults={searchRepoResult}
                   handleRepositoryDetail={getRepositoryDetail}
                 />
@@ -219,7 +219,7 @@ const MainLayout = () => {
               path="user"
               element={
                 <UserMainView
-                  userCount={usersCount.total_count}
+                  userCount={usersCount.total_count.toLocaleString()}
                   searchUsersResults={searchUsers}
                   handleUserDetail={getUserDetailResult}
                 />

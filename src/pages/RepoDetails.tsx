@@ -2,7 +2,14 @@ import React, { useContext } from "react";
 
 import Card from "../components/UI/Card";
 import DetailItem from "../components/Detail/DetailItem";
+import { IRepoDetailsProps } from "../types/types";
+import { BookmarkContext } from "../store/bookmark-context";
+import millify from "millify";
 import classes from "./RepoDetails.module.css";
+import fork from "../assets/fork.svg";
+import branch from "../assets/branch.svg";
+import pullRequest from "../assets/request.svg";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import InsertLinkIcon from "@mui/icons-material/InsertLink";
@@ -12,12 +19,6 @@ import { Button, Link } from "@mui/material";
 import { BookmarkBorderSharp, ClassOutlined } from "@mui/icons-material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import fork from "../assets/fork.svg";
-import branch from "../assets/branch.svg";
-import pullRequest from "../assets/request.svg";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import { IRepoDetailsProps } from "../types/types";
-import { BookmarkContext } from "../store/bookmark-context";
 
 const RepoDetails: React.FC<IRepoDetailsProps> = (props) => {
   const { addBookmarks, deleteBookmarks, bookmarkList } =
@@ -57,38 +58,38 @@ const RepoDetails: React.FC<IRepoDetailsProps> = (props) => {
             <DetailItem
               icon={<VisibilityOutlinedIcon />}
               text="Watch"
-              number={props.watch}
+              number={millify(props.watch).toLowerCase()}
             />
             <Divider />
             <DetailItem
               icon={<StarBorderIcon />}
               text="Star"
-              number={props.star}
+              number={millify(props.star).toLowerCase()}
             />
             <Divider />
             <DetailItem
               icon={<img src={fork} alt="git-fork" />}
               text="Fork"
-              number={props.fork}
+              number={millify(props.fork).toLowerCase()}
             />
           </Box>
           <Box>
             <DetailItem
               icon={<img src={branch} alt="git-branch" />}
               text="Branches"
-              number={props.branch}
+              number={millify(props.branch).toLowerCase()}
             />
             <Divider />
             <DetailItem
               icon={<ErrorOutlineIcon />}
               text="Issues"
-              number={props.issues}
+              number={millify(props.issues).toLowerCase()}
             />
             <Divider />
             <DetailItem
               icon={<img src={pullRequest} alt="pull-request" />}
               text="Pull Request"
-              number={props.pullRequest}
+              number={millify(props.pullRequest).toLowerCase()}
             />
           </Box>
           {!isBookmark ? (

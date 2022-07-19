@@ -9,7 +9,7 @@ import "@fontsource/roboto/400.css";
 
 const RepoMainView: React.FC<{
   searchRepoResults: IRepository[];
-  repoCount?: number;
+  repoCount: string;
   handleRepositoryDetail: (arg0: string, arg1: string) => void;
 }> = (props) => {
   const getRepoDetail = (login: string, name: string) => {
