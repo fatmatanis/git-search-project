@@ -99,7 +99,7 @@ const MainLayout = () => {
     setIsLoading(true);
     try {
       const getRepoDetail = await axios.get(
-        `https://api.github.com/repos/${selectedOwner}/${selectedRepo}`
+        `https://api.github.com/reps/${selectedOwner}/${selectedRepo}`
       );
       console.log("repo detail", getRepoDetail);
       setRepoDetail(getRepoDetail.data);
@@ -142,6 +142,11 @@ const MainLayout = () => {
     repo.fullName.toLowerCase().includes(searchText.toLowerCase())
   );
   console.log("hey", foundBookmark);
+
+  const handleErrorClose = () => {
+    console.log("closed");
+    setHttpError("");
+  };
 
   return (
     <Fragment>
@@ -241,7 +246,12 @@ const MainLayout = () => {
             element={
               <>
                 {isLoading && <Loading />}
-                {httpError && <Error alertText={httpError} />}
+                {httpError && (
+                  <Error
+                    handleErrorClose={handleErrorClose}
+                    alertText={httpError}
+                  />
+                )}
                 {!isLoading && repoDetail && (
                   <RepoDetails
                     id={repoDetail.id}
@@ -267,7 +277,12 @@ const MainLayout = () => {
             element={
               <>
                 {isLoading && <Loading />}
-                {httpError && <Error alertText={httpError} />}
+                {httpError && (
+                  <Error
+                    alertText={httpError}
+                    handleErrorClose={handleErrorClose}
+                  />
+                )}
                 {!isLoading && userDetail && userRepos && (
                   <UserDetails
                     avatar={userDetail.avatar_url}

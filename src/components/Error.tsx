@@ -13,13 +13,15 @@ import { ErrorSharp } from "@mui/icons-material";
 
 type ErrorProps = {
   alertText: string;
+  handleErrorClose?: () => void;
 };
 
-const Error: React.FC<ErrorProps> = ({ alertText }) => {
+const Error: React.FC<ErrorProps> = ({ alertText, handleErrorClose }) => {
   const [open, setOpen] = React.useState(true);
 
   const handleClose = () => {
     setOpen(false);
+    handleErrorClose && handleErrorClose();
   };
 
   return (
