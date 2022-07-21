@@ -3,7 +3,7 @@ import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
 
 import Header from "../HeaderLayout/Header";
 import Home from "../../pages/Home";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import RepoMainView from "../RepositoryLayout/RepoMainView";
 import UserMainView from "../UserLayout/UserMainView";
 import Card from "../UI/Card";
@@ -45,119 +45,103 @@ const MainLayout = () => {
   const [userRepos, setUserRepos] = useState<Array<IRepository>>([]);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [httpError, setHttpError] = useState();
+  const [httpError, setHttpError] = useState("");
 
   const navigate = useNavigate();
 
   const { bookmarkList } = useContext(BookmarkContext);
 
-  const getRepo = async () => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(event.target.value);
+  };
+
+  const repositoryResults = async () => {
     return await axios.get(
       `https://api.github.com/search/repositories?q=${searchText}`
     );
   };
 
-  const getUsers = async () => {
+  const userResults = async () => {
     return await axios.get(
       `https://api.github.com/search/users?q=${searchText}`
     );
   };
 
-  const getRepoDetail = async (owner: string, repo: string) => {
-    return await axios.get(`https://api.github.com/repos/${owner}/${repo}`);
-  };
-
-  const getUserDetail = async (user: string) => {
-    return await axios.get(`https://api.github.com/users/${user}`);
-  };
-
-  const getUserRepos = async (username: string) => {
-    return await axios.get(`https://api.github.com/users/${username}/repos`);
-  };
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(event.target.value);
-  };
   const handleOnKeyDown = async (
     event: React.KeyboardEvent<HTMLInputElement>
   ) => {
     if (event.key === "Enter" && searchText) {
       setIsLoading(true);
-      getRepo()
-        .then((res) => {
-          console.log("api result", res);
-          setSearchRepoResult(res.data.items);
-          setRepoCount(res.data);
-          navigate("results/repositories");
-          setIsLoading(false);
-        })
-        .catch((error) => {
-          setIsLoading(false);
-          setHttpError(error);
-        });
-      getUsers()
-        .then((res) => {
-          console.log("users result", res);
-          setSearchUsers(res.data.items);
-          setUsersCount(res.data);
-        })
-        .catch((error) => {
-          setHttpError(error);
-        });
+      try {
+        const [getRepo, getUser] = await Promise.all([
+          repositoryResults(),
+          userResults(),
+        ]);
+        console.log("repoUser", getRepo, getUser);
+
+        setSearchRepoResult(getRepo.data.items);
+        setRepoCount(getRepo.data);
+        setSearchUsers(getUser.data.items);
+        setUsersCount(getUser.data);
+      } catch (error) {
+        const err = error as AxiosError;
+        setHttpError(err.message);
+      }
+      setIsLoading(false);
+      navigate("results/repositories");
     }
   };
+
   const getRepositoryDetail = async (
     selectedOwner: string,
     selectedRepo: string
   ) => {
     setIsLoading(true);
-    getRepoDetail(selectedOwner, selectedRepo)
-      .then((res) => {
-        console.log("repo detail", res);
-        setRepoDetail(res.data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        setHttpError(error);
-      });
+    try {
+      const getRepoDetail = await axios.get(
+        `https://api.github.com/repos/${selectedOwner}/${selectedRepo}`
+      );
+      console.log("repo detail", getRepoDetail);
+      setRepoDetail(getRepoDetail.data);
+    } catch (error) {
+      const err = error as AxiosError;
+      setHttpError(err.message);
+    }
+    setIsLoading(false);
+  };
+
+  const userDetailResults = async (selectedUser: string) => {
+    return await axios.get(`https://api.github.com/users/${selectedUser}`);
+  };
+
+  const userReposResults = async (selectedUser: string) => {
+    return await axios.get(
+      `https://api.github.com/users/${selectedUser}/repos`
+    );
   };
 
   const getUserDetailResult = async (selectedUser: string) => {
     setIsLoading(true);
-    getUserDetail(selectedUser)
-      .then((res) => {
-        console.log("user detail", res);
-        setUserDetail(res.data);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        setHttpError(error);
-      });
-    getUserRepos(selectedUser)
-      .then((res) => {
-        console.log("user repos", res);
-        setUserRepos(res.data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        setHttpError(error);
-      });
+
+    try {
+      const [getUserDetail, getUserRepos] = await Promise.all([
+        userDetailResults(selectedUser),
+        userReposResults(selectedUser),
+      ]);
+      setUserDetail(getUserDetail.data);
+      setUserRepos(getUserRepos.data);
+      console.log("User Details and users repos", getUserDetail, getUserRepos);
+    } catch (error) {
+      const err = error as AxiosError;
+      setHttpError(err.message);
+    }
+    setIsLoading(false);
   };
 
   const foundBookmark = bookmarkList.filter((repo) =>
     repo.fullName.toLowerCase().includes(searchText.toLowerCase())
   );
   console.log("hey", foundBookmark);
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (httpError) {
-    return <Error />;
-  }
 
   return (
     <Fragment>
@@ -166,10 +150,17 @@ const MainLayout = () => {
         value={searchText}
         onKeyDown={handleOnKeyDown}
       />
-
       <Box className={classes.main}>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={
+              <>
+                {isLoading && <Loading />}
+                {!isLoading && <Home />}
+              </>
+            }
+          />
           <Route
             path="/bookmarks"
             element={<Bookmarks handleRepositoryDetail={getRepositoryDetail} />}
@@ -178,41 +169,49 @@ const MainLayout = () => {
             path="/results"
             element={
               <>
-                <Card>
-                  <SideListItem
-                    count={repoTotalCount.total_count.toLocaleString()}
-                    to="repositories"
-                    icon={<Note />}
-                    primary={"Repositories"}
-                  />
-                  <SideListItem
-                    count={usersCount.total_count.toLocaleString()}
-                    to="user"
-                    icon={<TagFaces />}
-                    primary={"Users"}
-                  />
-                  {foundBookmark.length > 0 && (
-                    <SideListItem
-                      count={foundBookmark.length.toLocaleString()}
-                      to="bookmarked"
-                      icon={<BookmarkBorderSharp />}
-                      primary={"Bookmarked"}
-                    />
-                  )}
-                  <Divider />
-                </Card>
-                <Outlet />
+                {isLoading && <Loading />}
+                {httpError && <Error alertText={httpError} />}
+                {!isLoading && (
+                  <>
+                    <Card>
+                      <SideListItem
+                        count={repoTotalCount.total_count.toLocaleString()}
+                        to="repositories"
+                        icon={<Note />}
+                        primary={"Repositories"}
+                      />
+                      <SideListItem
+                        count={usersCount.total_count.toLocaleString()}
+                        to="user"
+                        icon={<TagFaces />}
+                        primary={"Users"}
+                      />
+                      {foundBookmark.length > 0 && (
+                        <SideListItem
+                          count={foundBookmark.length.toLocaleString()}
+                          to="bookmarked"
+                          icon={<BookmarkBorderSharp />}
+                          primary={"Bookmarked"}
+                        />
+                      )}
+                      <Divider />
+                    </Card>
+                    <Outlet />
+                  </>
+                )}
               </>
             }
           >
             <Route
               path="repositories"
               element={
-                <RepoMainView
-                  repoCount={repoTotalCount.total_count.toLocaleString()}
-                  searchRepoResults={searchRepoResult}
-                  handleRepositoryDetail={getRepositoryDetail}
-                />
+                <>
+                  <RepoMainView
+                    repoCount={repoTotalCount.total_count.toLocaleString()}
+                    searchRepoResults={searchRepoResult}
+                    handleRepositoryDetail={getRepositoryDetail}
+                  />
+                </>
               }
             />
             <Route
@@ -237,44 +236,52 @@ const MainLayout = () => {
             />
           </Route>
 
-          {repoDetail && (
-            <Route
-              path="repositories/:repoId"
-              element={
-                <RepoDetails
-                  id={repoDetail.id}
-                  fullName={repoDetail.full_name}
-                  description={repoDetail.description}
-                  link={repoDetail.clone_url}
-                  fork={repoDetail.forks}
-                  star={repoDetail.stargazers_count}
-                  branch={repoDetail.subscribers_count}
-                  issues={repoDetail.open_issues}
-                  watch={repoDetail.subscribers_count}
-                  pullRequest={repoDetail.subscribers_count}
-                  name={repoDetail.name}
-                  owner={repoDetail.owner.login}
-                />
-              }
-            />
-          )}
+          <Route
+            path="repositories/:repoId"
+            element={
+              <>
+                {isLoading && <Loading />}
+                {httpError && <Error alertText={httpError} />}
+                {!isLoading && repoDetail && (
+                  <RepoDetails
+                    id={repoDetail.id}
+                    fullName={repoDetail.full_name}
+                    description={repoDetail.description}
+                    link={repoDetail.clone_url}
+                    fork={repoDetail.forks}
+                    star={repoDetail.stargazers_count}
+                    branch={repoDetail.subscribers_count}
+                    issues={repoDetail.open_issues}
+                    watch={repoDetail.subscribers_count}
+                    pullRequest={repoDetail.subscribers_count}
+                    name={repoDetail.name}
+                    owner={repoDetail.owner.login}
+                  />
+                )}
+              </>
+            }
+          />
 
-          {userDetail && userRepos && (
-            <Route
-              path="user/:userId"
-              element={
-                <UserDetails
-                  avatar={userDetail.avatar_url}
-                  name={userDetail.name}
-                  login={userDetail.login}
-                  bio={userDetail.bio}
-                  userRepoCount={userDetail.public_repos}
-                  userRepositoryList={userRepos}
-                  handleRepositoryDetail={getRepositoryDetail}
-                />
-              }
-            />
-          )}
+          <Route
+            path="user/:userId"
+            element={
+              <>
+                {isLoading && <Loading />}
+                {httpError && <Error alertText={httpError} />}
+                {!isLoading && userDetail && userRepos && (
+                  <UserDetails
+                    avatar={userDetail.avatar_url}
+                    name={userDetail.name}
+                    login={userDetail.login}
+                    bio={userDetail.bio}
+                    userRepoCount={userDetail.public_repos}
+                    userRepositoryList={userRepos}
+                    handleRepositoryDetail={getRepositoryDetail}
+                  />
+                )}
+              </>
+            }
+          />
         </Routes>
       </Box>
     </Fragment>
