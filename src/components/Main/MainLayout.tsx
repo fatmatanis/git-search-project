@@ -302,5 +302,4 @@ const MainLayout = () => {
     </Fragment>
   );
 };
-
 export default MainLayout;
