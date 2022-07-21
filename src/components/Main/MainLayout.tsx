@@ -99,7 +99,7 @@ const MainLayout = () => {
     setIsLoading(true);
     try {
       const getRepoDetail = await axios.get(
-        `https://api.github.com/reps/${selectedOwner}/${selectedRepo}`
+        `https://api.github.com/repos/${selectedOwner}/${selectedRepo}`
       );
       console.log("repo detail", getRepoDetail);
       setRepoDetail(getRepoDetail.data);
@@ -302,5 +302,4 @@ const MainLayout = () => {
     </Fragment>
   );
 };
-
 export default MainLayout;
