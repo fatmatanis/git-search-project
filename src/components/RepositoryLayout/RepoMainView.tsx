@@ -18,7 +18,12 @@ const RepoMainView: React.FC<{
 
   return (
     <Box className={classes.result}>
-      <Typography variant="h5" gutterBottom component="div">
+      <Typography
+        variant="h5"
+        gutterBottom
+        component="div"
+        className={classes["repo-results"]}
+      >
         {`${props.repoCount} Repository Results`}
       </Typography>
       {props.searchRepoResults.map((listItem: IRepository) => {
