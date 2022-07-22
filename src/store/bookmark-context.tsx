@@ -43,7 +43,7 @@ export const BookmarkContextProvider: React.FC<{ children: ReactNode }> = (
     setBookmarkList(newBookmarkList);
     saveToLocalStroage(newBookmarkList);
   };
-  console.log("fatmişko", bookmarkList);
+  console.log("Bookmark list", bookmarkList);
 
   return (
     <BookmarkContext.Provider

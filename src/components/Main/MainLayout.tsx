@@ -78,7 +78,7 @@ const MainLayout = () => {
           repositoryResults(),
           userResults(),
         ]);
-        console.log("repoUser", getRepo, getUser);
+        console.log("repo and user", getRepo, getUser);
 
         setSearchRepoResult(getRepo.data.items);
         setRepoCount(getRepo.data);
@@ -142,7 +142,7 @@ const MainLayout = () => {
   const foundBookmark = bookmarkList.filter((repo) =>
     repo.fullName.toLowerCase().includes(searchText.toLowerCase())
   );
-  console.log("hey", foundBookmark);
+  console.log("found bookmark", foundBookmark);
 
   const handleErrorClose = () => {
     console.log("closed");
