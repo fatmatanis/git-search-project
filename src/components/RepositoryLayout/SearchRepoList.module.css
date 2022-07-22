@@ -1,21 +1,17 @@
 .box {
   display: flex;
-  padding-top: 2%;
-}
-
-.class-icon {
-  margin-top: 0.5%;
+  margin: 24px 0 23px 0;
 }
 
 .detail {
   padding-left: 1%;
-  padding-bottom: 1%;
 }
 
 .name {
   font-family: "Roboto";
   font-weight: 400;
   color: #375f9d;
+  line-height: 1.2;
 }
 
 .link {

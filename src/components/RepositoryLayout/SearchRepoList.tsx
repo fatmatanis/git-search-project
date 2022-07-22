@@ -23,7 +23,7 @@ const SearchRepoList: React.FC<IBaseRepositoryProps> = ({
   return (
     <>
       <Box className={classes.box}>
-        <ClassOutlined className={classes["class-icon"]} />
+        <ClassOutlined />
         <Box className={classes.detail}>
           <Link
             to={`/repositories/${id}`}
@@ -34,7 +34,7 @@ const SearchRepoList: React.FC<IBaseRepositoryProps> = ({
               {fullName}
             </Typography>
           </Link>
-          <Typography variant="subtitle1" gutterBottom component="div">
+          <Typography variant="body1" gutterBottom component="div">
             {description}
           </Typography>
         </Box>

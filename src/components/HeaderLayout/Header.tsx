@@ -30,7 +30,9 @@ const Header: React.FC<IHeaderProps> = (props) => {
         }}
       >
         <Toolbar className={classes.toolbar}>
-          <img src={digieggs} alt="Digieggs logo" />
+          <NavLink to="/">
+            <img src={digieggs} alt="Digieggs logo" />
+          </NavLink>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
