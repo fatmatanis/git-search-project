@@ -21,7 +21,8 @@ import {
   IUsersDetail,
 } from "../../types/types";
 import classes from "./MainLayout.module.css";
-import { BookmarkBorderSharp, Note, TagFaces } from "@mui/icons-material";
+import note from "../../assets/note.svg";
+import { BookmarkBorderSharp, TagFaces } from "@mui/icons-material";
 import { Box, Divider } from "@mui/material";
 import Loading from "../Loading";
 import Error from "../Error";
@@ -182,7 +183,13 @@ const MainLayout = () => {
                       <SideListItem
                         count={repoTotalCount.total_count.toLocaleString()}
                         to="repositories"
-                        icon={<Note />}
+                        icon={
+                          <img
+                            src={note}
+                            alt="note-icon"
+                            className={classes.note}
+                          />
+                        }
                         primary={"Repositories"}
                       />
                       <SideListItem
