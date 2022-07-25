@@ -13,9 +13,9 @@ import "@fontsource/roboto/400.css";
 import { BookmarkBorderSharp } from "@mui/icons-material";
 
 interface IHeaderProps {
-  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-  value?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Header: React.FC<IHeaderProps> = (props) => {

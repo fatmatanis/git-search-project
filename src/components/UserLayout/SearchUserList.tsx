@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import classes from "./SearchUserList.module.css";
 import Box from "@mui/material/Box";
@@ -6,7 +7,6 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import { IUsers } from "../../types/types";
 import "@fontsource/roboto/400.css";
-import { Link } from "react-router-dom";
 
 const SearchUserList: React.FC<IUsers> = ({
   handleUserDetail,
