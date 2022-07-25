@@ -17,10 +17,6 @@
   padding-top: 16px;
 }
 
-.user-repositories {
-  margin: 0 64px 64px 380px;
-}
-
 .repo-result {
   display: flex;
   flex-direction: row;

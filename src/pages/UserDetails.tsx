@@ -1,6 +1,7 @@
 import React from "react";
 
-import Card from "../components/UI/Card";
+import DrawerCard from "../components/UI/DrawerCard";
+import MainCard from "../components/UI/MainCard";
 import classes from "./UserDetail.module.css";
 import { Box, Typography } from "@mui/material";
 import SearchRepoList from "../components/RepositoryLayout/SearchRepoList";
@@ -21,7 +22,7 @@ const UserDetails: React.FC<IUsersDetailProps> = ({
 
   return (
     <>
-      <Card>
+      <DrawerCard>
         <Box className={classes["user-info"]}>
           <img className={classes.avatar} src={avatar} alt="User Avatar" />
           <Typography variant="h5" component="div">
@@ -42,8 +43,8 @@ const UserDetails: React.FC<IUsersDetailProps> = ({
             {bio}
           </Typography>
         </Box>
-      </Card>
-      <Box component="main" className={classes["user-repositories"]}>
+      </DrawerCard>
+      <MainCard>
         <Box className={classes["repo-result"]}>
           <Typography
             variant="h5"
@@ -75,7 +76,7 @@ const UserDetails: React.FC<IUsersDetailProps> = ({
             />
           );
         })}
-      </Box>
+      </MainCard>
     </>
   );
 };

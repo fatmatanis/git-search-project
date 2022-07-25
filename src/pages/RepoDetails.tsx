@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 
-import Card from "../components/UI/Card";
+import DrawerCard from "../components/UI/DrawerCard";
+import MainCard from "../components/UI/MainCard";
 import DetailItem from "../components/Detail/DetailItem";
 import { IRepoDetailsProps } from "../types/types";
 import { BookmarkContext } from "../store/bookmark-context";
@@ -35,7 +36,7 @@ const RepoDetails: React.FC<IRepoDetailsProps> = (props) => {
 
   return (
     <>
-      <Card>
+      <DrawerCard>
         <Box className={classes["detail-box"]}>
           <ClassOutlined sx={{ fontSize: "64px" }} />
           <Typography variant="h6" component="div" className={classes.name}>
@@ -112,12 +113,12 @@ const RepoDetails: React.FC<IRepoDetailsProps> = (props) => {
             </Button>
           )}
         </Box>
-      </Card>
-      <Box component="main" className={classes.box}>
+      </DrawerCard>
+      <MainCard>
         <Typography variant="h6" gutterBottom component="div">
           {props.description}
         </Typography>
-      </Box>
+      </MainCard>
     </>
   );
 };
