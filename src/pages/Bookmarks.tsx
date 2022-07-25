@@ -1,6 +1,6 @@
 import React, { Fragment, useContext } from "react";
 
-import Card from "../components/UI/Card";
+import DrawerCard from "../components/UI/DrawerCard";
 import classes from "./Bookmarks.module.css";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
@@ -22,7 +22,7 @@ const Bookmarks: React.FC<IBookmarkListProps> = ({
   return (
     <Fragment>
       <Box className={classes["main-box"]}>
-        <Card>
+        <DrawerCard>
           <Box className={classes["side-box"]}>
             <BookmarkBorderSharp className={classes["bookmark-icon"]} />
             <Typography
@@ -39,7 +39,7 @@ const Bookmarks: React.FC<IBookmarkListProps> = ({
               You have {bookmarkList.length} bookmarks
             </Typography>
           </Box>
-        </Card>
+        </DrawerCard>
 
         <Box>
           {bookmarkList.map((repo: IRepoDetailsProps) => {

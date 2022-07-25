@@ -6,7 +6,7 @@ import Home from "../../pages/Home";
 import axios, { AxiosError } from "axios";
 import RepoMainView from "../RepositoryLayout/RepoMainView";
 import UserMainView from "../UserLayout/UserMainView";
-import Card from "../UI/Card";
+import DrawerCard from "../UI/DrawerCard";
 import SideListItem from "../SideListItem";
 import RepoDetails from "../../pages/RepoDetails";
 import UserDetails from "../../pages/UserDetails";
@@ -179,7 +179,7 @@ const MainLayout = () => {
                 {httpError && <Error alertText={httpError} />}
                 {!isLoading && (
                   <>
-                    <Card>
+                    <DrawerCard>
                       <SideListItem
                         count={repoTotalCount.total_count.toLocaleString()}
                         to="repositories"
@@ -207,7 +207,7 @@ const MainLayout = () => {
                         />
                       )}
                       <Divider />
-                    </Card>
+                    </DrawerCard>
                     <Outlet />
                   </>
                 )}

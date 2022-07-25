@@ -2,8 +2,7 @@ import React from "react";
 
 import SearchUserList from "./SearchUserList";
 import { IUsers } from "../../types/types";
-import classes from "./UserMainView.module.css";
-import Box from "@mui/material/Box";
+import MainCard from "../UI/MainCard";
 import { Typography } from "@mui/material";
 import "@fontsource/roboto/400.css";
 
@@ -17,7 +16,7 @@ const UserMainView: React.FC<{
   };
 
   return (
-    <Box component="main" className={classes.result}>
+    <MainCard>
       <Typography variant="h5" gutterBottom component="div">
         {`${userCount} Users Results`}
       </Typography>
@@ -32,7 +31,7 @@ const UserMainView: React.FC<{
           />
         );
       })}
-    </Box>
+    </MainCard>
   );
 };
 

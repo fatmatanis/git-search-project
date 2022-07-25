@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 
 import SearchRepoList from "../RepositoryLayout/SearchRepoList";
 import { IBookmarkedSearchProps, IRepoDetailsProps } from "../../types/types";
-import classes from "./BookmarkedSearch.module.css";
-import { Box, Typography } from "@mui/material";
+import MainCard from "../UI/MainCard";
 import { BookmarkContext } from "../../store/bookmark-context";
+import { Typography } from "@mui/material";
 
 const BookmarkedSearch: React.FC<IBookmarkedSearchProps> = ({
   handleRepositoryDetail,
@@ -22,7 +22,7 @@ const BookmarkedSearch: React.FC<IBookmarkedSearchProps> = ({
   console.log("hey", foundBookmark);
 
   return (
-    <Box className={classes.box}>
+    <MainCard>
       <Typography variant="h5" gutterBottom component="div">
         {`${foundBookmark.length} Bookmarked Repository Results`}
       </Typography>
@@ -39,7 +39,7 @@ const BookmarkedSearch: React.FC<IBookmarkedSearchProps> = ({
           />
         );
       })}
-    </Box>
+    </MainCard>
   );
 };
 

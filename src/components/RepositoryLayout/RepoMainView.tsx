@@ -3,9 +3,9 @@ import React from "react";
 import SearchRepoList from "./SearchRepoList";
 import { IRepository } from "../../types/types";
 import classes from "./RepoMainView.module.css";
-import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 import "@fontsource/roboto/400.css";
+import MainCard from "../UI/MainCard";
 
 const RepoMainView: React.FC<{
   searchRepoResults: IRepository[];
@@ -17,7 +17,7 @@ const RepoMainView: React.FC<{
   };
 
   return (
-    <Box className={classes.result}>
+    <MainCard>
       <Typography
         variant="h5"
         gutterBottom
@@ -39,7 +39,7 @@ const RepoMainView: React.FC<{
           />
         );
       })}
-    </Box>
+    </MainCard>
   );
 };
 

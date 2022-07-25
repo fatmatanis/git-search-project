@@ -1,6 +1,10 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import { IRepoDetailsProps } from "../types/types";
 
+type BookmarkProps = {
+  children: ReactNode;
+};
+
 type BookmarkContextObj = {
   bookmarkList: IRepoDetailsProps[];
   addBookmarks: (repo: IRepoDetailsProps) => void;
@@ -13,9 +17,7 @@ export const BookmarkContext = React.createContext<BookmarkContextObj>({
   deleteBookmarks: () => null,
 });
 
-export const BookmarkContextProvider: React.FC<{ children: ReactNode }> = (
-  props
-) => {
+export const BookmarkContextProvider = ({ children }: BookmarkProps) => {
   const [bookmarkList, setBookmarkList] = useState<Array<IRepoDetailsProps>>(
     []
   );
@@ -53,7 +55,7 @@ export const BookmarkContextProvider: React.FC<{ children: ReactNode }> = (
         deleteBookmarks: deleteBookmarks,
       }}
     >
-      {props.children}
+      {children}
     </BookmarkContext.Provider>
   );
 };
