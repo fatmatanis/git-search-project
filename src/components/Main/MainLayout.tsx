@@ -20,12 +20,12 @@ import {
   IUsers,
   IUsersDetail,
 } from "../../types/types";
+import Loading from "../Loading";
+import Error from "../Error";
 import classes from "./MainLayout.module.css";
 import note from "../../assets/note.svg";
 import { BookmarkBorderSharp, TagFaces } from "@mui/icons-material";
 import { Box, Divider } from "@mui/material";
-import Loading from "../Loading";
-import Error from "../Error";
 
 const MainLayout = () => {
   const [searchText, setSearchText] = useState("");
