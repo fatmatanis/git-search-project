@@ -1,23 +1,24 @@
 import React, { useContext } from "react";
 
 import SearchRepoList from "../RepositoryLayout/SearchRepoList";
-import { IBookmarkedSearchProps, IRepoDetailsProps } from "../../types/types";
+import { IBookmarkListProps, IRepoDetailsProps } from "../../types/types";
 import MainCard from "../UI/MainCard";
 import { BookmarkContext } from "../../store/bookmark-context";
 import { Typography } from "@mui/material";
+import { InputContex } from "../../store/input-context";
 
-const BookmarkedSearch: React.FC<IBookmarkedSearchProps> = ({
+const BookmarkedSearch: React.FC<IBookmarkListProps> = ({
   handleRepositoryDetail,
-  text,
 }) => {
   const getRepoDetail = (login: string, name: string) => {
     handleRepositoryDetail(login, name);
   };
 
+  const { searchText } = useContext(InputContex);
   const { bookmarkList } = useContext(BookmarkContext);
 
   const foundBookmark = bookmarkList.filter((repo) =>
-    repo.fullName.toLowerCase().includes(text.toLowerCase())
+    repo.fullName.toLowerCase().includes(searchText.toLowerCase())
   );
   console.log("hey", foundBookmark);
 

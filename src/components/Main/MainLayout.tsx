@@ -26,9 +26,9 @@ import classes from "./MainLayout.module.css";
 import note from "../../assets/note.svg";
 import { BookmarkBorderSharp, TagFaces } from "@mui/icons-material";
 import { Box, Divider } from "@mui/material";
+import { InputContex } from "../../store/input-context";
 
 const MainLayout = () => {
-  const [searchText, setSearchText] = useState("");
   const [searchRepoResult, setSearchRepoResult] = useState<Array<IRepository>>(
     []
   );
@@ -50,11 +50,8 @@ const MainLayout = () => {
 
   const navigate = useNavigate();
 
+  const { searchText } = useContext(InputContex);
   const { bookmarkList } = useContext(BookmarkContext);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(event.target.value);
-  };
 
   const repositoryResults = async () => {
     return await axios.get(
@@ -151,11 +148,8 @@ const MainLayout = () => {
 
   return (
     <Fragment>
-      <Header
-        onChange={handleChange}
-        value={searchText}
-        onKeyDown={handleOnKeyDown}
-      />
+      <Header onKeyDown={handleOnKeyDown} />
+
       <Box className={classes.main}>
         <Routes>
           <Route
@@ -241,7 +235,6 @@ const MainLayout = () => {
               path="bookmarked"
               element={
                 <BookmarkedSearch
-                  text={searchText}
                   handleRepositoryDetail={getRepositoryDetail}
                 />
               }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 
 import { Search, SearchIconWrapper, StyledInputBase } from "./SearchStyle";
@@ -11,15 +11,17 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Typography } from "@mui/material";
 import "@fontsource/roboto/400.css";
 import { BookmarkBorderSharp } from "@mui/icons-material";
+import { InputContex } from "../../store/input-context";
 
 interface IHeaderProps {
   onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-  value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Header: React.FC<IHeaderProps> = (props) => {
-  const { onKeyDown, value, onChange } = props;
+  const { onKeyDown } = props;
+
+  const { searchText, handleChange } = useContext(InputContex);
+
   return (
     <>
       <AppBar
@@ -41,8 +43,8 @@ const Header: React.FC<IHeaderProps> = (props) => {
               onKeyDown={onKeyDown}
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
-              value={value}
-              onChange={onChange}
+              value={searchText}
+              onChange={handleChange}
             />
           </Search>
           <NavLink

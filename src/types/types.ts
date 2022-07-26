@@ -88,7 +88,3 @@ export interface IUsersDetailProps {
 export interface IBookmarkListProps {
   handleRepositoryDetail: (arg0: string, arg1: string) => void;
 }
-
-export interface IBookmarkedSearchProps extends IBookmarkListProps {
-  text: string;
-}
