@@ -1,26 +1,19 @@
-import React, { Fragment, useContext } from "react";
+import React, { useContext } from "react";
 
-import DrawerCard from "../components/UI/DrawerCard";
-import classes from "./Bookmarks.module.css";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 import { BookmarkBorderSharp } from "@mui/icons-material";
-import "@fontsource/roboto/400.css";
-import { IBookmarkListProps, IRepoDetailsProps } from "../types/types";
 import { BookmarkContext } from "../store/bookmark-context";
 import SearchRepoList from "../components/RepositoryLayout/SearchRepoList";
+import DrawerCard from "../components/UI/DrawerCard";
+import { IBookmarkListProps, IRepoDetailsProps } from "../types/types";
+import classes from "./Bookmarks.module.css";
 
-const Bookmarks: React.FC<IBookmarkListProps> = ({
-  handleRepositoryDetail,
-}) => {
-  const getRepoDetail = (login: string, name: string) => {
-    handleRepositoryDetail(login, name);
-  };
-
+const Bookmarks: React.FC<IBookmarkListProps> = ({ getRepoDetail }) => {
   const { bookmarkList } = useContext(BookmarkContext);
 
   return (
-    <Fragment>
+    <>
       <Box className={classes["main-box"]}>
         <DrawerCard>
           <Box className={classes["side-box"]}>
@@ -57,7 +50,7 @@ const Bookmarks: React.FC<IBookmarkListProps> = ({
           })}
         </Box>
       </Box>
-    </Fragment>
+    </>
   );
 };
 

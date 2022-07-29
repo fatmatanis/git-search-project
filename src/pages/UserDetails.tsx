@@ -1,14 +1,14 @@
 import React from "react";
 
+import { Box, Typography } from "@mui/material";
 import DrawerCard from "../components/UI/DrawerCard";
 import MainCard from "../components/UI/MainCard";
-import classes from "./UserDetail.module.css";
-import { Box, Typography } from "@mui/material";
 import SearchRepoList from "../components/RepositoryLayout/SearchRepoList";
 import { IRepository, IUsersDetailProps } from "../types/types";
+import classes from "./UserDetail.module.css";
 
 const UserDetails: React.FC<IUsersDetailProps> = ({
-  handleRepositoryDetail,
+  getRepoDetail,
   avatar,
   name,
   login,
@@ -16,10 +16,6 @@ const UserDetails: React.FC<IUsersDetailProps> = ({
   userRepoCount,
   userRepositoryList,
 }) => {
-  const getRepoDetail = (login: string, name: string) => {
-    handleRepositoryDetail(login, name);
-  };
-
   return (
     <>
       <DrawerCard>

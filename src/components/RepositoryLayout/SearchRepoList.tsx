@@ -1,13 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-import classes from "./SearchRepoList.module.css";
 import Box from "@mui/material/Box";
 import { ClassOutlined } from "@mui/icons-material";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import "@fontsource/roboto/400.css";
-import { Link } from "react-router-dom";
 import { IBaseRepositoryProps } from "../../types/types";
+import classes from "./SearchRepoList.module.css";
 
 const SearchRepoList: React.FC<IBaseRepositoryProps> = ({
   handleRepositoryDetail,

@@ -1,7 +1,7 @@
 import React from "react";
 
-import classes from "./Home.module.css";
 import ScreenSearchDesktopIcon from "@mui/icons-material/ScreenSearchDesktop";
+import classes from "./Home.module.css";
 
 const Home = () => {
   return (

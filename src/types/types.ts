@@ -81,10 +81,10 @@ export interface IUsersDetailProps {
   login: string;
   bio: string;
   userRepoCount: number;
-  handleRepositoryDetail: (arg0: string, arg1: string) => void;
+  getRepoDetail: (arg0: string, arg1: string) => void;
   userRepositoryList: IRepository[];
 }
 
 export interface IBookmarkListProps {
-  handleRepositoryDetail: (arg0: string, arg1: string) => void;
+  getRepoDetail: (arg0: string, arg1: string) => void;
 }

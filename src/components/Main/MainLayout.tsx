@@ -1,18 +1,23 @@
 import React, { Fragment, useContext, useState } from "react";
 import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
 
+import { BookmarkBorderSharp, TagFaces } from "@mui/icons-material";
+import { Box, Divider } from "@mui/material";
+import axios, { AxiosError } from "axios";
+import { InputContex } from "../../store/input-context";
+import { BookmarkContext } from "../../store/bookmark-context";
 import Header from "../HeaderLayout/Header";
 import Home from "../../pages/Home";
-import axios, { AxiosError } from "axios";
 import RepoMainView from "../RepositoryLayout/RepoMainView";
 import UserMainView from "../UserLayout/UserMainView";
 import DrawerCard from "../UI/DrawerCard";
-import SideListItem from "../SideListItem";
+import SideListItem from "../UI/SideListItem";
 import RepoDetails from "../../pages/RepoDetails";
 import UserDetails from "../../pages/UserDetails";
 import Bookmarks from "../../pages/Bookmarks";
-import { BookmarkContext } from "../../store/bookmark-context";
 import BookmarkedSearch from "../Bookmark";
+import Loading from "../UI/Loading";
+import Error from "../UI/Error";
 import {
   IRepository,
   IRepositoryDetail,
@@ -20,13 +25,8 @@ import {
   IUsers,
   IUsersDetail,
 } from "../../types/types";
-import Loading from "../Loading";
-import Error from "../Error";
 import classes from "./MainLayout.module.css";
 import note from "../../assets/note.svg";
-import { BookmarkBorderSharp, TagFaces } from "@mui/icons-material";
-import { Box, Divider } from "@mui/material";
-import { InputContex } from "../../store/input-context";
 
 const MainLayout = () => {
   const [searchRepoResult, setSearchRepoResult] = useState<Array<IRepository>>(
@@ -156,7 +156,7 @@ const MainLayout = () => {
           />
           <Route
             path="/bookmarks"
-            element={<Bookmarks handleRepositoryDetail={getRepositoryDetail} />}
+            element={<Bookmarks getRepoDetail={getRepositoryDetail} />}
           />
           <Route
             path="/results"
@@ -204,13 +204,11 @@ const MainLayout = () => {
             <Route
               path="repositories"
               element={
-                <>
-                  <RepoMainView
-                    repoCount={repoTotalCount.total_count.toLocaleString()}
-                    searchRepoResults={searchRepoResult}
-                    handleRepositoryDetail={getRepositoryDetail}
-                  />
-                </>
+                <RepoMainView
+                  repoCount={repoTotalCount.total_count.toLocaleString()}
+                  searchRepoResults={searchRepoResult}
+                  getRepoDetail={getRepositoryDetail}
+                />
               }
             />
             <Route
@@ -219,18 +217,14 @@ const MainLayout = () => {
                 <UserMainView
                   userCount={usersCount.total_count.toLocaleString()}
                   searchUsersResults={searchUsers}
-                  handleUserDetail={getUserDetails}
+                  getUserDetail={getUserDetails}
                 />
               }
             />
 
             <Route
               path="bookmarked"
-              element={
-                <BookmarkedSearch
-                  handleRepositoryDetail={getRepositoryDetail}
-                />
-              }
+              element={<BookmarkedSearch getRepoDetail={getRepositoryDetail} />}
             />
           </Route>
 
@@ -284,7 +278,7 @@ const MainLayout = () => {
                     bio={userDetail.bio}
                     userRepoCount={userDetail.public_repos}
                     userRepositoryList={userRepos}
-                    handleRepositoryDetail={getRepositoryDetail}
+                    getRepoDetail={getRepositoryDetail}
                   />
                 )}
               </>

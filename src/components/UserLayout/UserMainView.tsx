@@ -1,20 +1,15 @@
 import React from "react";
 
-import SearchUserList from "./SearchUserList";
-import { IUsers } from "../../types/types";
-import MainCard from "../UI/MainCard";
 import { Typography } from "@mui/material";
-import "@fontsource/roboto/400.css";
+import SearchUserList from "./SearchUserList";
+import MainCard from "../UI/MainCard";
+import { IUsers } from "../../types/types";
 
 const UserMainView: React.FC<{
   searchUsersResults: IUsers[];
   userCount: string;
-  handleUserDetail: (arg0: string) => void;
-}> = ({ handleUserDetail, userCount, searchUsersResults }) => {
-  const getUserDetail = (login: string) => {
-    handleUserDetail(login);
-  };
-
+  getUserDetail: (arg0: string) => void;
+}> = ({ getUserDetail, userCount, searchUsersResults }) => {
   return (
     <MainCard>
       <Typography variant="h5" gutterBottom component="div">

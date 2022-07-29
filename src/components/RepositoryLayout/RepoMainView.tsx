@@ -1,21 +1,16 @@
 import React from "react";
 
+import { Typography } from "@mui/material";
 import SearchRepoList from "./SearchRepoList";
+import MainCard from "../UI/MainCard";
 import { IRepository } from "../../types/types";
 import classes from "./RepoMainView.module.css";
-import { Typography } from "@mui/material";
-import "@fontsource/roboto/400.css";
-import MainCard from "../UI/MainCard";
 
 const RepoMainView: React.FC<{
   searchRepoResults: IRepository[];
   repoCount: string;
-  handleRepositoryDetail: (arg0: string, arg1: string) => void;
-}> = (props) => {
-  const getRepoDetail = (login: string, name: string) => {
-    props.handleRepositoryDetail(login, name);
-  };
-
+  getRepoDetail: (arg0: string, arg1: string) => void;
+}> = ({ repoCount, searchRepoResults, getRepoDetail }) => {
   return (
     <MainCard>
       <Typography
@@ -24,9 +19,9 @@ const RepoMainView: React.FC<{
         component="div"
         className={classes["repo-results"]}
       >
-        {`${props.repoCount} Repository Results`}
+        {`${repoCount} Repository Results`}
       </Typography>
-      {props.searchRepoResults.map((listItem: IRepository) => {
+      {searchRepoResults.map((listItem: IRepository) => {
         return (
           <SearchRepoList
             key={listItem.id}

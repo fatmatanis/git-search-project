@@ -1,19 +1,13 @@
 import React, { useContext } from "react";
 
-import SearchRepoList from "../RepositoryLayout/SearchRepoList";
-import { IBookmarkListProps, IRepoDetailsProps } from "../../types/types";
-import MainCard from "../UI/MainCard";
-import { BookmarkContext } from "../../store/bookmark-context";
 import { Typography } from "@mui/material";
+import { BookmarkContext } from "../../store/bookmark-context";
 import { InputContex } from "../../store/input-context";
+import SearchRepoList from "../RepositoryLayout/SearchRepoList";
+import MainCard from "../UI/MainCard";
+import { IBookmarkListProps, IRepoDetailsProps } from "../../types/types";
 
-const BookmarkedSearch: React.FC<IBookmarkListProps> = ({
-  handleRepositoryDetail,
-}) => {
-  const getRepoDetail = (login: string, name: string) => {
-    handleRepositoryDetail(login, name);
-  };
-
+const BookmarkedSearch: React.FC<IBookmarkListProps> = ({ getRepoDetail }) => {
   const { searchText } = useContext(InputContex);
   const { bookmarkList } = useContext(BookmarkContext);
 

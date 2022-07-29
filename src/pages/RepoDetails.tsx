@@ -1,15 +1,6 @@
 import React, { useContext } from "react";
 
-import DrawerCard from "../components/UI/DrawerCard";
-import MainCard from "../components/UI/MainCard";
-import DetailItem from "../components/Detail/DetailItem";
-import { IRepoDetailsProps } from "../types/types";
-import { BookmarkContext } from "../store/bookmark-context";
 import millify from "millify";
-import classes from "./RepoDetails.module.css";
-import fork from "../assets/fork.svg";
-import branch from "../assets/branch.svg";
-import pullRequest from "../assets/request.svg";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -20,6 +11,15 @@ import { Button, Link } from "@mui/material";
 import { BookmarkBorderSharp, ClassOutlined } from "@mui/icons-material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
+import { BookmarkContext } from "../store/bookmark-context";
+import DrawerCard from "../components/UI/DrawerCard";
+import MainCard from "../components/UI/MainCard";
+import DetailItem from "../components/Detail/DetailItem";
+import { IRepoDetailsProps } from "../types/types";
+import fork from "../assets/fork.svg";
+import branch from "../assets/branch.svg";
+import pullRequest from "../assets/request.svg";
+import classes from "./RepoDetails.module.css";
 
 const RepoDetails: React.FC<IRepoDetailsProps> = (props) => {
   const { addBookmarks, deleteBookmarks, bookmarkList } =

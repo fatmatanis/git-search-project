@@ -1,17 +1,17 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 
-import { Search, SearchIconWrapper, StyledInputBase } from "./SearchStyle";
-import digieggs from "../../assets/digieggs.png";
-import classes from "./Header.module.css";
-
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import SearchIcon from "@mui/icons-material/Search";
 import { Typography } from "@mui/material";
-import "@fontsource/roboto/400.css";
 import { BookmarkBorderSharp } from "@mui/icons-material";
 import { InputContex } from "../../store/input-context";
+import { Search, SearchIconWrapper, StyledInputBase } from "./SearchStyle";
+import digieggs from "../../assets/digieggs.png";
+import classes from "./Header.module.css";
+
+import "@fontsource/roboto/400.css";
 
 interface IHeaderProps {
   onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void;

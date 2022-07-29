@@ -1,13 +1,13 @@
-import React, { Fragment } from "react";
+import React from "react";
 
-import { IDetailItemProps } from "../../types/types";
-import classes from "./DetailItem.module.css";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import { IDetailItemProps } from "../../types/types";
+import classes from "./DetailItem.module.css";
 
 const DetailItem: React.FC<IDetailItemProps> = (props) => {
   return (
-    <Fragment>
+    <>
       <Grid container className={classes.container}>
         <div className={classes.icon}>{props.icon}</div>
         <Typography
@@ -25,7 +25,7 @@ const DetailItem: React.FC<IDetailItemProps> = (props) => {
           {props.number}
         </Typography>
       </Grid>
-    </Fragment>
+    </>
   );
 };
 
