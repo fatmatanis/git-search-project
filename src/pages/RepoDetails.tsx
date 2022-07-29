@@ -25,7 +25,9 @@ const RepoDetails: React.FC<IRepoDetailsProps> = (props) => {
   const { addBookmarks, deleteBookmarks, bookmarkList } =
     useContext(BookmarkContext);
 
-  const isBookmark = bookmarkList.some((repo) => repo.id === props.id);
+  const isBookmark =
+    bookmarkList.length > 0 &&
+    bookmarkList.some((repo) => repo.id === props.id);
 
   const addBookmarksHandler = () => {
     addBookmarks(props);

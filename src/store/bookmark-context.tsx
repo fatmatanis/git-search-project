@@ -25,7 +25,7 @@ export const BookmarkContextProvider = ({ children }: BookmarkProps) => {
 
   useEffect(() => {
     const bookmarkedRepos = JSON.parse(
-      localStorage.getItem("react-bookmarked-repos") || ""
+      localStorage.getItem("react-bookmarked-repos") || "[]"
     );
     setBookmarkList(bookmarkedRepos);
   }, []);

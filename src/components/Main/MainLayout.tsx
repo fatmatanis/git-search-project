@@ -132,9 +132,11 @@ const MainLayout = () => {
     setIsLoading(false);
   };
 
-  const foundBookmark = bookmarkList.filter((repo) =>
-    repo.fullName.toLowerCase().includes(searchText.toLowerCase())
-  );
+  const foundBookmark =
+    bookmarkList.length > 0 &&
+    bookmarkList.filter((repo) =>
+      repo.fullName.toLowerCase().includes(searchText.toLowerCase())
+    );
   const handleErrorClose = () => {
     setError("");
   };
@@ -185,7 +187,7 @@ const MainLayout = () => {
                         icon={<TagFaces />}
                         primary={"Users"}
                       />
-                      {foundBookmark.length > 0 && (
+                      {foundBookmark && foundBookmark.length > 0 && (
                         <SideListItem
                           count={foundBookmark.length.toLocaleString()}
                           to="bookmarked"
