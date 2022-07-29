@@ -20,7 +20,6 @@ const BookmarkedSearch: React.FC<IBookmarkListProps> = ({
   const foundBookmark = bookmarkList.filter((repo) =>
     repo.fullName.toLowerCase().includes(searchText.toLowerCase())
   );
-  console.log("hey", foundBookmark);
 
   return (
     <MainCard>

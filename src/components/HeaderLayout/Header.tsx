@@ -23,51 +23,49 @@ const Header: React.FC<IHeaderProps> = (props) => {
   const { searchText, handleChange } = useContext(InputContex);
 
   return (
-    <>
-      <AppBar
-        position="fixed"
-        sx={{
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-          bgcolor: "#375f9d",
-        }}
-      >
-        <Toolbar className={classes.toolbar}>
-          <NavLink to="/">
-            <img src={digieggs} alt="Digieggs logo" />
-          </NavLink>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              onKeyDown={onKeyDown}
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-              value={searchText}
-              onChange={handleChange}
-            />
-          </Search>
-          <NavLink
-            className={classes.navLink}
-            to="bookmarks"
-            style={({ isActive }) =>
-              isActive
-                ? { backgroundColor: "#557dbb" }
-                : { backgroundColor: "transparent" }
-            }
+    <AppBar
+      position="fixed"
+      sx={{
+        zIndex: (theme) => theme.zIndex.drawer + 1,
+        bgcolor: "#375f9d",
+      }}
+    >
+      <Toolbar className={classes.toolbar}>
+        <NavLink to="/">
+          <img src={digieggs} alt="Digieggs logo" />
+        </NavLink>
+        <Search>
+          <SearchIconWrapper>
+            <SearchIcon />
+          </SearchIconWrapper>
+          <StyledInputBase
+            onKeyDown={onKeyDown}
+            placeholder="Search…"
+            inputProps={{ "aria-label": "search" }}
+            value={searchText}
+            onChange={handleChange}
+          />
+        </Search>
+        <NavLink
+          className={classes.navLink}
+          to="bookmarks"
+          style={({ isActive }) =>
+            isActive
+              ? { backgroundColor: "#557dbb" }
+              : { backgroundColor: "transparent" }
+          }
+        >
+          <BookmarkBorderSharp />
+          <Typography
+            variant="body1"
+            component="div"
+            className={classes.bookmark}
           >
-            <BookmarkBorderSharp />
-            <Typography
-              variant="body1"
-              component="div"
-              className={classes.bookmark}
-            >
-              Bookmarks
-            </Typography>
-          </NavLink>
-        </Toolbar>
-      </AppBar>
-    </>
+            Bookmarks
+          </Typography>
+        </NavLink>
+      </Toolbar>
+    </AppBar>
   );
 };
 

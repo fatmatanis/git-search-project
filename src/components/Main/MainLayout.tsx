@@ -12,7 +12,7 @@ import RepoDetails from "../../pages/RepoDetails";
 import UserDetails from "../../pages/UserDetails";
 import Bookmarks from "../../pages/Bookmarks";
 import { BookmarkContext } from "../../store/bookmark-context";
-import BookmarkedSearch from "../Bookmark/BookmarkedSearch";
+import BookmarkedSearch from "../Bookmark";
 import {
   IRepository,
   IRepositoryDetail,
@@ -46,12 +46,12 @@ const MainLayout = () => {
   const [userRepos, setUserRepos] = useState<Array<IRepository>>([]);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [httpError, setHttpError] = useState("");
-
-  const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const { searchText } = useContext(InputContex);
   const { bookmarkList } = useContext(BookmarkContext);
+
+  const navigate = useNavigate();
 
   const repositoryResults = async () => {
     return await axios.get(
@@ -75,15 +75,13 @@ const MainLayout = () => {
           repositoryResults(),
           userResults(),
         ]);
-        console.log("repo and user", getRepo, getUser);
-
         setSearchRepoResult(getRepo.data.items);
         setRepoCount(getRepo.data);
         setSearchUsers(getUser.data.items);
         setUsersCount(getUser.data);
       } catch (error) {
         const err = error as AxiosError;
-        setHttpError(err.message);
+        setError(err.message);
       }
       setIsLoading(false);
       navigate("results/repositories");
@@ -99,11 +97,10 @@ const MainLayout = () => {
       const getRepoDetail = await axios.get(
         `https://api.github.com/repos/${selectedOwner}/${selectedRepo}`
       );
-      console.log("repo detail", getRepoDetail);
       setRepoDetail(getRepoDetail.data);
     } catch (error) {
       const err = error as AxiosError;
-      setHttpError(err.message);
+      setError(err.message);
     }
     setIsLoading(false);
   };
@@ -118,7 +115,7 @@ const MainLayout = () => {
     );
   };
 
-  const getUserDetailResult = async (selectedUser: string) => {
+  const getUserDetails = async (selectedUser: string) => {
     setIsLoading(true);
 
     try {
@@ -128,10 +125,9 @@ const MainLayout = () => {
       ]);
       setUserDetail(getUserDetail.data);
       setUserRepos(getUserRepos.data);
-      console.log("User Details and users repos", getUserDetail, getUserRepos);
     } catch (error) {
       const err = error as AxiosError;
-      setHttpError(err.message);
+      setError(err.message);
     }
     setIsLoading(false);
   };
@@ -139,11 +135,8 @@ const MainLayout = () => {
   const foundBookmark = bookmarkList.filter((repo) =>
     repo.fullName.toLowerCase().includes(searchText.toLowerCase())
   );
-  console.log("found bookmark", foundBookmark);
-
   const handleErrorClose = () => {
-    console.log("closed");
-    setHttpError("");
+    setError("");
   };
 
   return (
@@ -170,7 +163,7 @@ const MainLayout = () => {
             element={
               <>
                 {isLoading && <Loading />}
-                {httpError && <Error alertText={httpError} />}
+                {error && <Error alertText={error} />}
                 {!isLoading && (
                   <>
                     <DrawerCard>
@@ -226,7 +219,7 @@ const MainLayout = () => {
                 <UserMainView
                   userCount={usersCount.total_count.toLocaleString()}
                   searchUsersResults={searchUsers}
-                  handleUserDetail={getUserDetailResult}
+                  handleUserDetail={getUserDetails}
                 />
               }
             />
@@ -246,10 +239,10 @@ const MainLayout = () => {
             element={
               <>
                 {isLoading && <Loading />}
-                {httpError && (
+                {error && (
                   <Error
                     handleErrorClose={handleErrorClose}
-                    alertText={httpError}
+                    alertText={error}
                   />
                 )}
                 {!isLoading && repoDetail && (
@@ -277,9 +270,9 @@ const MainLayout = () => {
             element={
               <>
                 {isLoading && <Loading />}
-                {httpError && (
+                {error && (
                   <Error
-                    alertText={httpError}
+                    alertText={error}
                     handleErrorClose={handleErrorClose}
                   />
                 )}

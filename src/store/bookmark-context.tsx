@@ -45,7 +45,6 @@ export const BookmarkContextProvider = ({ children }: BookmarkProps) => {
     setBookmarkList(newBookmarkList);
     saveToLocalStroage(newBookmarkList);
   };
-  console.log("Bookmark list", bookmarkList);
 
   return (
     <BookmarkContext.Provider

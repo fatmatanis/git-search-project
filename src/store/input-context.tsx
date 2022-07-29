@@ -20,7 +20,6 @@ export const InputContexProvider = ({ children }: InputContexProps) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
   };
-  //   console.log("text", searchText);
 
   return (
     <InputContex.Provider
