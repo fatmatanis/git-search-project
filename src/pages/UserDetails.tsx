@@ -5,7 +5,7 @@ import DrawerCard from "../components/UI/DrawerCard";
 import MainCard from "../components/UI/MainCard";
 import SearchRepoList from "../components/RepositoryLayout/SearchRepoList";
 import { IRepository, IUsersDetailProps } from "../types/types";
-import classes from "./UserDetail.module.css";
+import classes from "./UserDetails.module.css";
 
 const UserDetails: React.FC<IUsersDetailProps> = ({
   getRepoDetail,
