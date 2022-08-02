@@ -2,28 +2,34 @@ import React from "react";
 
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import { styled } from "@mui/material/styles";
 import { IDetailItemProps } from "../../types/types";
-import classes from "./DetailItem.module.css";
 
 const DetailItem: React.FC<IDetailItemProps> = (props) => {
+  const Icon = styled("div")(({ theme }) => ({
+    margin: theme.spacing(0.5, 0.5, 0.5, 0),
+    paddingRight: theme.spacing(0.5),
+  }));
+
+  const DetailText = styled(Typography)(({ theme }) => ({
+    flexGrow: 1,
+    alignSelf: "flex-start",
+    lineHeight: "24px",
+    margin: theme.spacing(0.5, 1, 0.5, 0),
+  }));
+
+  const DetailNumber = styled(Typography)(({ theme }) => ({
+    color: "#2c98f0",
+    fontWeight: "bold",
+    margin: theme.spacing(0.5, 0),
+  }));
+
   return (
     <>
-      <Grid container className={classes.container}>
-        <div className={classes.icon}>{props.icon}</div>
-        <Typography
-          variant="subtitle1"
-          component="div"
-          className={classes.text}
-        >
-          {props.text}
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          component="div"
-          className={classes.number}
-        >
-          {props.number}
-        </Typography>
+      <Grid container>
+        <Icon>{props.icon}</Icon>
+        <DetailText variant="subtitle1">{props.text}</DetailText>
+        <DetailNumber variant="subtitle1">{props.number}</DetailNumber>
       </Grid>
     </>
   );
