@@ -2,7 +2,7 @@ import React, { Fragment, useContext, useState } from "react";
 import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
 
 import { BookmarkBorderSharp, TagFaces } from "@mui/icons-material";
-import { Box, Divider } from "@mui/material";
+import { Divider } from "@mui/material";
 import axios, { AxiosError } from "axios";
 import { InputContex } from "../../store/input-context";
 import { BookmarkContext } from "../../store/bookmark-context";
@@ -25,7 +25,6 @@ import {
   IUsers,
   IUsersDetail,
 } from "../../types/types";
-import classes from "./MainLayout.module.css";
 import note from "../../assets/note.svg";
 
 const MainLayout = () => {
@@ -145,149 +144,135 @@ const MainLayout = () => {
     <Fragment>
       <Header onKeyDown={handleOnKeyDown} />
 
-      <Box className={classes.main}>
-        <Routes>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              {isLoading && <Loading />}
+              {!isLoading && <Home />}
+            </>
+          }
+        />
+        <Route
+          path="/bookmarks"
+          element={<Bookmarks getRepoDetail={getRepositoryDetail} />}
+        />
+        <Route
+          path="/results"
+          element={
+            <>
+              {isLoading && <Loading />}
+              {error && <Error alertText={error} />}
+              {!isLoading && (
+                <>
+                  <DrawerCard>
+                    <SideListItem
+                      count={repoTotalCount.total_count.toLocaleString()}
+                      to="repositories"
+                      icon={<img src={note} alt="note-icon" />}
+                      primary={"Repositories"}
+                    />
+                    <SideListItem
+                      count={usersCount.total_count.toLocaleString()}
+                      to="user"
+                      icon={<TagFaces />}
+                      primary={"Users"}
+                    />
+                    {foundBookmark && foundBookmark.length > 0 && (
+                      <SideListItem
+                        count={foundBookmark.length.toLocaleString()}
+                        to="bookmarked"
+                        icon={<BookmarkBorderSharp />}
+                        primary={"Bookmarked"}
+                      />
+                    )}
+                    <Divider />
+                  </DrawerCard>
+                  <Outlet />
+                </>
+              )}
+            </>
+          }
+        >
           <Route
-            path="/"
+            path="repositories"
             element={
-              <>
-                {isLoading && <Loading />}
-                {!isLoading && <Home />}
-              </>
+              <RepoMainView
+                repoCount={repoTotalCount.total_count.toLocaleString()}
+                searchRepoResults={searchRepoResult}
+                getRepoDetail={getRepositoryDetail}
+              />
             }
           />
           <Route
-            path="/bookmarks"
-            element={<Bookmarks getRepoDetail={getRepositoryDetail} />}
-          />
-          <Route
-            path="/results"
+            path="user"
             element={
-              <>
-                {isLoading && <Loading />}
-                {error && <Error alertText={error} />}
-                {!isLoading && (
-                  <>
-                    <DrawerCard>
-                      <SideListItem
-                        count={repoTotalCount.total_count.toLocaleString()}
-                        to="repositories"
-                        icon={
-                          <img
-                            src={note}
-                            alt="note-icon"
-                            className={classes.note}
-                          />
-                        }
-                        primary={"Repositories"}
-                      />
-                      <SideListItem
-                        count={usersCount.total_count.toLocaleString()}
-                        to="user"
-                        icon={<TagFaces />}
-                        primary={"Users"}
-                      />
-                      {foundBookmark && foundBookmark.length > 0 && (
-                        <SideListItem
-                          count={foundBookmark.length.toLocaleString()}
-                          to="bookmarked"
-                          icon={<BookmarkBorderSharp />}
-                          primary={"Bookmarked"}
-                        />
-                      )}
-                      <Divider />
-                    </DrawerCard>
-                    <Outlet />
-                  </>
-                )}
-              </>
+              <UserMainView
+                userCount={usersCount.total_count.toLocaleString()}
+                searchUsersResults={searchUsers}
+                getUserDetail={getUserDetails}
+              />
             }
-          >
-            <Route
-              path="repositories"
-              element={
-                <RepoMainView
-                  repoCount={repoTotalCount.total_count.toLocaleString()}
-                  searchRepoResults={searchRepoResult}
+          />
+
+          <Route
+            path="bookmarked"
+            element={<BookmarkedSearch getRepoDetail={getRepositoryDetail} />}
+          />
+        </Route>
+
+        <Route
+          path="repositories/:repoId"
+          element={
+            <>
+              {isLoading && <Loading />}
+              {error && (
+                <Error handleErrorClose={handleErrorClose} alertText={error} />
+              )}
+              {!isLoading && repoDetail && (
+                <RepoDetails
+                  id={repoDetail.id}
+                  fullName={repoDetail.full_name}
+                  description={repoDetail.description}
+                  link={repoDetail.clone_url}
+                  fork={repoDetail.forks}
+                  star={repoDetail.stargazers_count}
+                  branch={repoDetail.subscribers_count}
+                  issues={repoDetail.open_issues}
+                  watch={repoDetail.subscribers_count}
+                  pullRequest={repoDetail.subscribers_count}
+                  name={repoDetail.name}
+                  owner={repoDetail.owner.login}
+                />
+              )}
+            </>
+          }
+        />
+
+        <Route
+          path="user/:userId"
+          element={
+            <>
+              {isLoading && <Loading />}
+              {error && (
+                <Error alertText={error} handleErrorClose={handleErrorClose} />
+              )}
+              {!isLoading && userDetail && userRepos && (
+                <UserDetails
+                  avatar={userDetail.avatar_url}
+                  name={userDetail.name}
+                  login={userDetail.login}
+                  bio={userDetail.bio}
+                  userRepoCount={userDetail.public_repos}
+                  userRepositoryList={userRepos}
                   getRepoDetail={getRepositoryDetail}
                 />
-              }
-            />
-            <Route
-              path="user"
-              element={
-                <UserMainView
-                  userCount={usersCount.total_count.toLocaleString()}
-                  searchUsersResults={searchUsers}
-                  getUserDetail={getUserDetails}
-                />
-              }
-            />
-
-            <Route
-              path="bookmarked"
-              element={<BookmarkedSearch getRepoDetail={getRepositoryDetail} />}
-            />
-          </Route>
-
-          <Route
-            path="repositories/:repoId"
-            element={
-              <>
-                {isLoading && <Loading />}
-                {error && (
-                  <Error
-                    handleErrorClose={handleErrorClose}
-                    alertText={error}
-                  />
-                )}
-                {!isLoading && repoDetail && (
-                  <RepoDetails
-                    id={repoDetail.id}
-                    fullName={repoDetail.full_name}
-                    description={repoDetail.description}
-                    link={repoDetail.clone_url}
-                    fork={repoDetail.forks}
-                    star={repoDetail.stargazers_count}
-                    branch={repoDetail.subscribers_count}
-                    issues={repoDetail.open_issues}
-                    watch={repoDetail.subscribers_count}
-                    pullRequest={repoDetail.subscribers_count}
-                    name={repoDetail.name}
-                    owner={repoDetail.owner.login}
-                  />
-                )}
-              </>
-            }
-          />
-
-          <Route
-            path="user/:userId"
-            element={
-              <>
-                {isLoading && <Loading />}
-                {error && (
-                  <Error
-                    alertText={error}
-                    handleErrorClose={handleErrorClose}
-                  />
-                )}
-                {!isLoading && userDetail && userRepos && (
-                  <UserDetails
-                    avatar={userDetail.avatar_url}
-                    name={userDetail.name}
-                    login={userDetail.login}
-                    bio={userDetail.bio}
-                    userRepoCount={userDetail.public_repos}
-                    userRepositoryList={userRepos}
-                    getRepoDetail={getRepositoryDetail}
-                  />
-                )}
-              </>
-            }
-          />
-        </Routes>
-      </Box>
+              )}
+            </>
+          }
+        />
+      </Routes>
     </Fragment>
   );
 };

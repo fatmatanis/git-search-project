@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 
 import AppBar from "@mui/material/AppBar";
 import SearchIcon from "@mui/icons-material/Search";
-import { Typography } from "@mui/material";
 import { BookmarkBorderSharp } from "@mui/icons-material";
 import { InputContex } from "../../store/input-context";
 import {
