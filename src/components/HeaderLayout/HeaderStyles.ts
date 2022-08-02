@@ -1,6 +1,6 @@
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-import { Toolbar } from "@mui/material";
+import { Toolbar, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
 
 export const Search = styled("div")(({ theme }) => ({
@@ -61,8 +61,13 @@ export const CustomToolbar = styled(Toolbar)(({ theme }) => ({
 
 export const BookmarkLink = styled(NavLink)(({ theme }) => ({
   display: "flex",
-  color: "rgba(255, 255, 255, 0.87)",
   textDecoration: "none",
+  color: "rgba(255, 255, 255, 0.87)",
   padding: theme.spacing(0.7, 2),
   borderRadius: theme.shape.borderRadius,
+}));
+
+export const BookmarkTypography = styled(Typography)(({ theme }) => ({
+  paddingLeft: theme.spacing(1),
+  color: "rgba(255, 255, 255, 0.87)",
 }));

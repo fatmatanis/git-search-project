@@ -8,6 +8,7 @@ import { BookmarkBorderSharp } from "@mui/icons-material";
 import { InputContex } from "../../store/input-context";
 import {
   BookmarkLink,
+  BookmarkTypography,
   CustomToolbar,
   Img,
   Search,
@@ -58,9 +59,7 @@ const Header: React.FC<IHeaderProps> = (props) => {
           }
         >
           <BookmarkBorderSharp />
-          <Typography variant="body1" component="div">
-            Bookmarks
-          </Typography>
+          <BookmarkTypography variant="body1">Bookmarks</BookmarkTypography>
         </BookmarkLink>
       </CustomToolbar>
     </AppBar>
