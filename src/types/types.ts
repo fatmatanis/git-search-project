@@ -58,7 +58,7 @@ export interface IRepoDetailsProps {
   issues: number;
   pullRequest: number;
   description: string;
-  link?: string;
+  link: string;
 }
 
 export interface IDetailItemProps {
