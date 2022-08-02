@@ -36,19 +36,17 @@ const Bookmarks: React.FC<IBookmarkListProps> = ({ getRepoDetail }) => {
 
         <Box>
           {bookmarkList.length > 0
-            ? bookmarkList.map((repo: IRepoDetailsProps) => {
-                return (
-                  <SearchRepoList
-                    key={repo.id}
-                    id={repo.id}
-                    fullName={repo.fullName}
-                    description={repo.description}
-                    handleRepositoryDetail={getRepoDetail}
-                    login={repo.owner}
-                    name={repo.name}
-                  />
-                );
-              })
+            ? bookmarkList.map((repo: IRepoDetailsProps) => (
+                <SearchRepoList
+                  key={repo.id}
+                  id={repo.id}
+                  fullName={repo.fullName}
+                  description={repo.description}
+                  handleRepositoryDetail={getRepoDetail}
+                  login={repo.owner}
+                  name={repo.name}
+                />
+              ))
             : "You don't have bookmark."}
         </Box>
       </Box>

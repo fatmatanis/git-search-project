@@ -1,3 +1,9 @@
+export interface IListItemLinkProps {
+  icon: React.ReactElement;
+  primary: string;
+  count: string;
+  to: string;
+}
 export interface IBaseRepositoryProps {
   id: number;
   fullName: string;
@@ -21,6 +27,12 @@ export interface IRepository {
 export type TotalCount = {
   total_count: number;
 };
+
+export interface IRepoMainViewProps {
+  searchRepoResults: IRepository[];
+  repoCount: string;
+  getRepoDetail: (arg0: string, arg1: string) => void;
+}
 
 export interface IUsers {
   id: number;

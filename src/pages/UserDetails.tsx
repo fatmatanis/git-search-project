@@ -59,19 +59,17 @@ const UserDetails: React.FC<IUsersDetailProps> = ({
             {userRepoCount}
           </Typography>
         </Box>
-        {userRepositoryList.map((item: IRepository) => {
-          return (
-            <SearchRepoList
-              key={item.id}
-              id={item.id}
-              fullName={item.full_name}
-              description={item.description}
-              handleRepositoryDetail={getRepoDetail}
-              login={item.owner.login}
-              name={item.name}
-            />
-          );
-        })}
+        {userRepositoryList.map((item: IRepository) => (
+          <SearchRepoList
+            key={item.id}
+            id={item.id}
+            fullName={item.full_name}
+            description={item.description}
+            handleRepositoryDetail={getRepoDetail}
+            login={item.owner.login}
+            name={item.name}
+          />
+        ))}
       </MainCard>
     </>
   );
