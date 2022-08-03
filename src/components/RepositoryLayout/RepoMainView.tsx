@@ -4,7 +4,6 @@ import { Typography } from "@mui/material";
 import SearchRepoList from "./SearchRepoList";
 import MainCard from "../UI/MainCard";
 import { IRepoMainViewProps, IRepository } from "../../types/types";
-import classes from "./RepoMainView.module.css";
 
 const RepoMainView: React.FC<IRepoMainViewProps> = ({
   repoCount,
@@ -15,12 +14,8 @@ const RepoMainView: React.FC<IRepoMainViewProps> = ({
     <MainCard>
       <Typography
         variant="h5"
-        gutterBottom
-        component="div"
-        className={classes["repo-results"]}
-      >
-        {`${repoCount} Repository Results`}
-      </Typography>
+        sx={{ pb: "18px" }}
+      >{`${repoCount} Repository Results`}</Typography>
       {searchRepoResults.map((listItem: IRepository) => (
         <SearchRepoList
           key={listItem.id}
