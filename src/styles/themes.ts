@@ -11,7 +11,13 @@ export const theme = createTheme({
       main: "#85b0f2",
       light: "#375f9d",
     },
-    common: { white: "#FFFFFFCC" },
+    common: {
+      white: "#FFFFFFCC",
+    },
+    info: {
+      main: "#FFFFFF",
+      light: "#d9e8ff",
+    },
   },
   typography: {
     fontFamily: "Roboto",

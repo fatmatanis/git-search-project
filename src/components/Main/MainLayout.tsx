@@ -2,7 +2,7 @@ import React, { Fragment, useContext, useState } from "react";
 import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
 
 import { BookmarkBorderSharp, TagFaces } from "@mui/icons-material";
-import { Divider } from "@mui/material";
+import { Divider, List } from "@mui/material";
 import axios, { AxiosError } from "axios";
 import { InputContex } from "../../store/input-context";
 import { BookmarkContext } from "../../store/bookmark-context";
@@ -167,27 +167,29 @@ const MainLayout = () => {
               {!isLoading && (
                 <>
                   <DrawerCard>
-                    <SideListItem
-                      count={repoTotalCount.total_count.toLocaleString()}
-                      to="repositories"
-                      icon={<img src={note} alt="note-icon" />}
-                      primary={"Repositories"}
-                    />
-                    <SideListItem
-                      count={usersCount.total_count.toLocaleString()}
-                      to="user"
-                      icon={<TagFaces />}
-                      primary={"Users"}
-                    />
-                    {foundBookmark && foundBookmark.length > 0 && (
+                    <List>
                       <SideListItem
-                        count={foundBookmark.length.toLocaleString()}
-                        to="bookmarked"
-                        icon={<BookmarkBorderSharp />}
-                        primary={"Bookmarked"}
+                        count={repoTotalCount.total_count.toLocaleString()}
+                        to="repositories"
+                        icon={<img src={note} alt="note-icon" />}
+                        primary={"Repositories"}
                       />
-                    )}
-                    <Divider />
+                      <SideListItem
+                        count={usersCount.total_count.toLocaleString()}
+                        to="user"
+                        icon={<TagFaces />}
+                        primary={"Users"}
+                      />
+                      {foundBookmark && foundBookmark.length > 0 && (
+                        <SideListItem
+                          count={foundBookmark.length.toLocaleString()}
+                          to="bookmarked"
+                          icon={<BookmarkBorderSharp />}
+                          primary={"Bookmarked"}
+                        />
+                      )}
+                      <Divider />
+                    </List>
                   </DrawerCard>
                   <Outlet />
                 </>

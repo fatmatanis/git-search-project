@@ -18,7 +18,7 @@ const DetailText = styled(Typography)(({ theme }) => ({
 }));
 
 const DetailNumber = styled(Typography)(({ theme }) => ({
-  color: "#2c98f0",
+  color: theme.palette.primary.main,
   fontWeight: "bold",
   margin: theme.spacing(0.5, 0),
 }));
