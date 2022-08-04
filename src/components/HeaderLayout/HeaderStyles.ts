@@ -61,12 +61,11 @@ export const CustomToolbar = styled(Toolbar)(({ theme }) => ({
 export const BookmarkLink = styled(NavLink)(({ theme }) => ({
   display: "flex",
   textDecoration: "none",
-  color: "rgba(255, 255, 255, 0.87)",
+  color: theme.palette.common.white,
   padding: theme.spacing(0.7, 2),
   borderRadius: theme.shape.borderRadius,
 }));
 
 export const BookmarkTypography = styled(Typography)(({ theme }) => ({
   paddingLeft: theme.spacing(1),
-  color: "rgba(255, 255, 255, 0.87)",
 }));
