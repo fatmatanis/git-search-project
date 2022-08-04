@@ -10,11 +10,14 @@ const MainBox = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   paddingTop: theme.spacing(13),
-  paddingRight: theme.spacing(4),
+  paddingRight: theme.spacing(6),
 }));
 
 const Box = styled("div")(({ theme }) => ({
-  margin: theme.spacing(0, 4, 8, 50),
+  margin: theme.spacing(0, 4, 8, 52),
+  [theme.breakpoints.down("md")]: {
+    margin: theme.spacing(0, 3, 8, 34),
+  },
 }));
 
 const MainCard = ({ children }: MainCardProps) => {
