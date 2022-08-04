@@ -3,12 +3,18 @@ import React, { useContext } from "react";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 import { BookmarkBorderSharp } from "@mui/icons-material";
+import { styled } from "@mui/material/styles";
 import { BookmarkContext } from "../store/bookmark-context";
 import SearchRepoList from "../components/RepositoryLayout/SearchRepoList";
 import DrawerCard from "../components/UI/DrawerCard";
 import MainCard from "../components/UI/MainCard";
 import { IBookmarkListProps, IRepoDetailsProps } from "../types/types";
-import classes from "./Bookmarks.module.css";
+
+const SideBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  margin: theme.spacing(5, 0, 0, 6),
+}));
 
 const Bookmarks: React.FC<IBookmarkListProps> = ({ getRepoDetail }) => {
   const { bookmarkList } = useContext(BookmarkContext);
@@ -16,18 +22,15 @@ const Bookmarks: React.FC<IBookmarkListProps> = ({ getRepoDetail }) => {
   return (
     <>
       <DrawerCard>
-        <Box className={classes["side-box"]}>
-          <BookmarkBorderSharp className={classes["bookmark-icon"]} />
-          <Typography variant="h5" component="div" className={classes.bookmark}>
+        <SideBox>
+          <BookmarkBorderSharp sx={{ mb: 3, fontSize: 64 }} />
+          <Typography variant="h5" component="div">
             Bookmarks
           </Typography>
-          <Typography
-            variant="subtitle1"
-            className={classes["total-bookmarks"]}
-          >
+          <Typography variant="subtitle1" color="primary.light">
             You have {bookmarkList.length} bookmarks
           </Typography>
-        </Box>
+        </SideBox>
       </DrawerCard>
 
       <MainCard>
