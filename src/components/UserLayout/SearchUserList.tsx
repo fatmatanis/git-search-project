@@ -4,8 +4,21 @@ import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
+import { styled } from "@mui/material/styles";
 import { IUsers } from "../../types/types";
-import classes from "./SearchUserList.module.css";
+
+const CustomBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "row",
+  margin: theme.spacing(3, 0),
+}));
+
+const Avatar = styled("img")(({ theme }) => ({
+  padding: theme.spacing(0, 1),
+  widht: theme.spacing(3),
+  height: theme.spacing(3),
+  borderRadius: "50%",
+}));
 
 const SearchUserList: React.FC<IUsers> = ({
   handleUserDetail,
@@ -18,24 +31,23 @@ const SearchUserList: React.FC<IUsers> = ({
   };
 
   return (
-    <>
-      <Box className={classes.box}>
-        <img src={avatar_url} alt="User Avatar" className={classes.avatar} />
+    <Box>
+      <CustomBox>
+        <Avatar src={avatar_url} alt="User Avatar" />
         <Box>
-          <Link to={`/user/${id}`} className={classes.link} onClick={getUser}>
-            <Typography
-              variant="subtitle1"
-              gutterBottom
-              component="div"
-              className={classes.login}
-            >
+          <Link
+            to={`/user/${id}`}
+            onClick={getUser}
+            style={{ textDecoration: "none" }}
+          >
+            <Typography variant="subtitle1" color="secondary.light">
               {login}
             </Typography>
           </Link>
         </Box>
-      </Box>
+      </CustomBox>
       <Divider />
-    </>
+    </Box>
   );
 };
 
