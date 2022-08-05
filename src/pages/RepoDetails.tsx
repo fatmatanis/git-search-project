@@ -11,6 +11,7 @@ import { Button, Link } from "@mui/material";
 import { BookmarkBorderSharp, ClassOutlined } from "@mui/icons-material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
+import { styled } from "@mui/material/styles";
 import { BookmarkContext } from "../store/bookmark-context";
 import DrawerCard from "../components/UI/DrawerCard";
 import MainCard from "../components/UI/MainCard";
@@ -19,7 +20,37 @@ import { IRepoDetailsProps } from "../types/types";
 import fork from "../assets/fork.svg";
 import branch from "../assets/branch.svg";
 import pullRequest from "../assets/request.svg";
-import classes from "./RepoDetails.module.css";
+
+const DetailBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  padding: theme.spacing(4, 5),
+}));
+
+const CustomClassOutlined = styled(ClassOutlined)(({ theme }) => ({
+  fontSize: "64px",
+  marginBottom: "24px",
+  [theme.breakpoints.down("md")]: {
+    fontSize: "36px",
+    marginBottom: "12px",
+  },
+}));
+
+const DeleteButton = styled(Button)(({ theme }) => ({
+  backgroundColor: theme.palette.primary.main,
+  color: theme.palette.common.white,
+  textTransform: "none",
+  marginTop: theme.spacing(2),
+  ":hover": {
+    backgroundColor: theme.palette.info.dark,
+  },
+}));
+
+const AddButton = styled(Button)(({ theme }) => ({
+  textTransform: "none",
+  marginTop: theme.spacing(2),
+  color: theme.palette.primary.main,
+}));
 
 const RepoDetails: React.FC<IRepoDetailsProps> = (props) => {
   const { addBookmarks, deleteBookmarks, bookmarkList } =
@@ -39,25 +70,26 @@ const RepoDetails: React.FC<IRepoDetailsProps> = (props) => {
   return (
     <>
       <DrawerCard>
-        <Box className={classes["detail-box"]}>
-          <ClassOutlined sx={{ fontSize: "64px" }} />
-          <Typography variant="h6" component="div" className={classes.name}>
+        <DetailBox>
+          <CustomClassOutlined />
+          <Typography variant="h6" component="div" color="secondary.light">
             {props.fullName}
           </Typography>
           <Typography variant="subtitle2" component="div">
             {props.description}
           </Typography>
-          <Grid container className={classes["link-container"]}>
-            <InsertLinkIcon color="action" className={classes["link-icon"]} />
+          <Grid container sx={{ mt: 1, mb: 2 }}>
+            <InsertLinkIcon color="action" sx={{ mt: 0.3 }} />
             <Link
               href={props.link}
               variant="subtitle1"
-              className={classes.link}
+              color="primary.main"
+              sx={{ textDecoration: "none", pl: 1 }}
             >
               {props.fullName}
             </Link>
           </Grid>
-          <Box className={classes["top-items"]}>
+          <Box sx={{ mb: 4 }}>
             <DetailItem
               icon={<VisibilityOutlinedIcon />}
               text="Watch"
@@ -96,28 +128,20 @@ const RepoDetails: React.FC<IRepoDetailsProps> = (props) => {
             />
           </Box>
           {!isBookmark ? (
-            <Button
-              variant="outlined"
-              className={classes.add}
-              onClick={addBookmarksHandler}
-            >
+            <AddButton variant="outlined" onClick={addBookmarksHandler}>
               <BookmarkBorderSharp />
               {"Add to Bookmarks"}
-            </Button>
+            </AddButton>
           ) : (
-            <Button
-              variant="outlined"
-              className={classes.delete}
-              onClick={deleteBookmarksHandler}
-            >
+            <DeleteButton variant="outlined" onClick={deleteBookmarksHandler}>
               <BookmarkBorderSharp />
               {"Delete Bookmark"}
-            </Button>
+            </DeleteButton>
           )}
-        </Box>
+        </DetailBox>
       </DrawerCard>
       <MainCard>
-        <Typography variant="h6" gutterBottom component="div">
+        <Typography variant="h6" component="div">
           {props.description}
         </Typography>
       </MainCard>
