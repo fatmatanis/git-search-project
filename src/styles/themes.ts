@@ -9,6 +9,7 @@ export const theme = createTheme({
     },
     secondary: {
       main: "#85b0f2",
+      dark: "#2196f3",
       light: "#375f9d",
     },
     common: {
