@@ -5,7 +5,7 @@ import { BookmarkContext } from "../../store/bookmark-context";
 import { InputContex } from "../../store/input-context";
 import SearchRepoList from "../RepositoryLayout/SearchRepoList";
 import MainCard from "../UI/MainCard";
-import { IBookmarkListProps, IRepoDetailsProps } from "../../types/types";
+import { IBookmarkListProps, IRepoDetails } from "../../types/types";
 
 const BookmarkedSearch: React.FC<IBookmarkListProps> = ({ getRepoDetail }) => {
   const { searchText } = useContext(InputContex);
@@ -20,7 +20,7 @@ const BookmarkedSearch: React.FC<IBookmarkListProps> = ({ getRepoDetail }) => {
       <Typography variant="h5" gutterBottom component="div">
         {`${foundBookmark.length} Bookmarked Repository Results`}
       </Typography>
-      {foundBookmark.map((repo: IRepoDetailsProps) => (
+      {foundBookmark.map((repo: IRepoDetails) => (
         <SearchRepoList
           key={repo.id}
           id={repo.id}

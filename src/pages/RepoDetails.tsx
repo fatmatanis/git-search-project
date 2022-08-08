@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 
-import millify from "millify";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -12,14 +11,15 @@ import { BookmarkBorderSharp, ClassOutlined } from "@mui/icons-material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { styled } from "@mui/material/styles";
+import millify from "millify";
 import { BookmarkContext } from "../store/bookmark-context";
 import DrawerCard from "../components/UI/DrawerCard";
 import MainCard from "../components/UI/MainCard";
 import DetailItem from "../components/Detail/DetailItem";
-import { IRepoDetailsProps } from "../types/types";
 import fork from "../assets/fork.svg";
 import branch from "../assets/branch.svg";
 import pullRequest from "../assets/request.svg";
+import { IRepoDetails } from "../types/types";
 
 const DetailBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -52,7 +52,7 @@ const AddButton = styled(Button)(({ theme }) => ({
   color: theme.palette.primary.main,
 }));
 
-const RepoDetails: React.FC<IRepoDetailsProps> = (props) => {
+const RepoDetails: React.FC<IRepoDetails> = (props) => {
   const { addBookmarks, deleteBookmarks, bookmarkList } =
     useContext(BookmarkContext);
   const {

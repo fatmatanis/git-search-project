@@ -8,7 +8,7 @@ import { BookmarkContext } from "../store/bookmark-context";
 import SearchRepoList from "../components/RepositoryLayout/SearchRepoList";
 import DrawerCard from "../components/UI/DrawerCard";
 import MainCard from "../components/UI/MainCard";
-import { IBookmarkListProps, IRepoDetailsProps } from "../types/types";
+import { IBookmarkListProps, IRepoDetails } from "../types/types";
 
 const SideBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -35,7 +35,7 @@ const Bookmarks: React.FC<IBookmarkListProps> = ({ getRepoDetail }) => {
 
       <MainCard>
         {bookmarkList.length > 0
-          ? bookmarkList.map((repo: IRepoDetailsProps) => (
+          ? bookmarkList.map((repo: IRepoDetails) => (
               <SearchRepoList
                 key={repo.id}
                 id={repo.id}

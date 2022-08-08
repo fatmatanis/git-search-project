@@ -66,7 +66,7 @@ export interface IRepositoryDetail {
   };
 }
 
-export interface IRepoDetailsProps {
+export interface IRepoDetails {
   owner: string;
   name: string;
   id: number;

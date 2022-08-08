@@ -18,6 +18,7 @@ import Bookmarks from "../../pages/Bookmarks";
 import BookmarkedSearch from "../Bookmark";
 import Loading from "../UI/Loading";
 import Error from "../UI/Error";
+import note from "../../assets/note.svg";
 import {
   IRepository,
   IRepositoryDetail,
@@ -25,7 +26,6 @@ import {
   IUsers,
   IUsersDetail,
 } from "../../types/types";
-import note from "../../assets/note.svg";
 
 const MainLayout = () => {
   const [searchRepoResult, setSearchRepoResult] = useState<Array<IRepository>>(
