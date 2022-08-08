@@ -238,12 +238,12 @@ const MainLayout = () => {
                   fullName={repoDetail.full_name}
                   description={repoDetail.description}
                   link={repoDetail.clone_url}
-                  fork={repoDetail.forks}
+                  forks={repoDetail.forks}
                   star={repoDetail.stargazers_count}
-                  branch={repoDetail.subscribers_count}
+                  branches={repoDetail.subscribers_count}
                   issues={repoDetail.open_issues}
                   watch={repoDetail.subscribers_count}
-                  pullRequest={repoDetail.subscribers_count}
+                  pullRequests={repoDetail.subscribers_count}
                   name={repoDetail.name}
                   owner={repoDetail.owner.login}
                 />

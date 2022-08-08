@@ -73,10 +73,10 @@ export interface IRepoDetailsProps {
   fullName: string;
   watch: number;
   star: number;
-  fork: number;
-  branch: number;
+  forks: number;
+  branches: number;
   issues: number;
-  pullRequest: number;
+  pullRequests: number;
   description: string;
   link: string;
 }

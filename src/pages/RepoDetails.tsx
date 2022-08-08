@@ -55,16 +55,27 @@ const AddButton = styled(Button)(({ theme }) => ({
 const RepoDetails: React.FC<IRepoDetailsProps> = (props) => {
   const { addBookmarks, deleteBookmarks, bookmarkList } =
     useContext(BookmarkContext);
+  const {
+    id,
+    fullName,
+    description,
+    link,
+    watch,
+    star,
+    forks,
+    branches,
+    issues,
+    pullRequests,
+  } = props;
 
   const isBookmark =
-    bookmarkList.length > 0 &&
-    bookmarkList.some((repo) => repo.id === props.id);
+    bookmarkList.length > 0 && bookmarkList.some((repo) => repo.id === id);
 
   const addBookmarksHandler = () => {
     addBookmarks(props);
   };
   const deleteBookmarksHandler = () => {
-    deleteBookmarks(props.id);
+    deleteBookmarks(id);
   };
 
   return (
@@ -73,15 +84,15 @@ const RepoDetails: React.FC<IRepoDetailsProps> = (props) => {
         <DetailBox>
           <CustomClassOutlined />
           <Typography variant="h6" component="div" color="secondary.light">
-            {props.fullName}
+            {fullName}
           </Typography>
           <Typography variant="subtitle2" component="div">
-            {props.description}
+            {description}
           </Typography>
           <Grid container sx={{ mt: 1, mb: 2 }}>
             <InsertLinkIcon color="action" sx={{ mt: 0.3 }} />
             <Link
-              href={props.link}
+              href={link}
               variant="subtitle1"
               color="primary.main"
               sx={{ textDecoration: "none", pl: 1 }}
@@ -93,38 +104,38 @@ const RepoDetails: React.FC<IRepoDetailsProps> = (props) => {
             <DetailItem
               icon={<VisibilityOutlinedIcon />}
               text="Watch"
-              number={millify(props.watch).toLowerCase()}
+              number={millify(watch).toLowerCase()}
             />
             <Divider />
             <DetailItem
               icon={<StarBorderIcon />}
               text="Star"
-              number={millify(props.star).toLowerCase()}
+              number={millify(star).toLowerCase()}
             />
             <Divider />
             <DetailItem
               icon={<img src={fork} alt="git-fork" />}
               text="Fork"
-              number={millify(props.fork).toLowerCase()}
+              number={millify(forks).toLowerCase()}
             />
           </Box>
           <Box>
             <DetailItem
               icon={<img src={branch} alt="git-branch" />}
               text="Branches"
-              number={millify(props.branch).toLowerCase()}
+              number={millify(branches).toLowerCase()}
             />
             <Divider />
             <DetailItem
               icon={<ErrorOutlineIcon />}
               text="Issues"
-              number={millify(props.issues).toLowerCase()}
+              number={millify(issues).toLowerCase()}
             />
             <Divider />
             <DetailItem
               icon={<img src={pullRequest} alt="pull-request" />}
               text="Pull Request"
-              number={millify(props.pullRequest).toLowerCase()}
+              number={millify(pullRequests).toLowerCase()}
             />
           </Box>
           {!isBookmark ? (
@@ -142,7 +153,7 @@ const RepoDetails: React.FC<IRepoDetailsProps> = (props) => {
       </DrawerCard>
       <MainCard>
         <Typography variant="h6" component="div">
-          {props.description}
+          {description}
         </Typography>
       </MainCard>
     </>
