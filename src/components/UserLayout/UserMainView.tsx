@@ -3,13 +3,13 @@ import React from "react";
 import { Typography } from "@mui/material";
 import SearchUserList from "./SearchUserList";
 import MainCard from "../UI/MainCard";
-import { IUsers } from "../../types/types";
+import { IUserMainViewProps, IUsers } from "../../types/types";
 
-const UserMainView: React.FC<{
-  searchUsersResults: IUsers[];
-  userCount: string;
-  getUserDetail: (arg0: string) => void;
-}> = ({ getUserDetail, userCount, searchUsersResults }) => {
+const UserMainView: React.FC<IUserMainViewProps> = ({
+  getUserDetail,
+  userCount,
+  searchUsersResults,
+}) => {
   return (
     <MainCard>
       <Typography variant="h5" gutterBottom component="div">

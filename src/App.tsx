@@ -5,7 +5,6 @@ import { BookmarkContextProvider } from "./store/bookmark-context";
 import { InputContexProvider } from "./store/input-context";
 import MainLayout from "./components/Main/MainLayout";
 import { theme } from "./styles/themes";
-import "./App.css";
 
 function App() {
   return (

@@ -6,7 +6,7 @@ import { Divider, List } from "@mui/material";
 import axios, { AxiosError } from "axios";
 import { InputContex } from "../../store/input-context";
 import { BookmarkContext } from "../../store/bookmark-context";
-import Header from "../HeaderLayout/Header";
+import Header from "../HeaderLayout/index";
 import Home from "../../pages/Home";
 import RepoMainView from "../RepositoryLayout/RepoMainView";
 import UserMainView from "../UserLayout/UserMainView";

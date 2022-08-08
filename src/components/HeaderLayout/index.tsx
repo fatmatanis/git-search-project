@@ -5,6 +5,7 @@ import AppBar from "@mui/material/AppBar";
 import SearchIcon from "@mui/icons-material/Search";
 import { BookmarkBorderSharp } from "@mui/icons-material";
 import { InputContex } from "../../store/input-context";
+import { IHeaderProps } from "../../types/types";
 import {
   BookmarkLink,
   BookmarkTypography,
@@ -13,16 +14,10 @@ import {
   Search,
   SearchIconWrapper,
   StyledInputBase,
-} from "./HeaderStyles";
+} from "./styles";
 import digieggs from "../../assets/digieggs.png";
 
-interface IHeaderProps {
-  onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-}
-
-const Header: React.FC<IHeaderProps> = (props) => {
-  const { onKeyDown } = props;
-
+const Header: React.FC<IHeaderProps> = ({ onKeyDown }) => {
   const { searchText, handleChange } = useContext(InputContex);
 
   return (

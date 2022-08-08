@@ -1,3 +1,6 @@
+export interface IHeaderProps {
+  onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+}
 export interface IListItemLinkProps {
   icon: React.ReactElement;
   primary: string;
@@ -34,6 +37,11 @@ export interface IRepoMainViewProps {
   getRepoDetail: (arg0: string, arg1: string) => void;
 }
 
+export interface IUserMainViewProps {
+  searchUsersResults: IUsers[];
+  userCount: string;
+  getUserDetail: (arg0: string) => void;
+}
 export interface IUsers {
   id: number;
   login: string;
