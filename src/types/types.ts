@@ -1,6 +1,3 @@
-export interface IHeaderProps {
-  onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-}
 export interface IListItemLinkProps {
   icon: React.ReactElement;
   primary: string;
@@ -31,6 +28,11 @@ export type TotalCount = {
   total_count: number;
 };
 
+export interface IRepoSearchResults {
+  count: number;
+  repoSearch: IRepository[];
+}
+
 export interface IRepoMainViewProps {
   searchRepoResults: IRepository[];
   repoCount: string;
@@ -47,6 +49,11 @@ export interface IUsers {
   login: string;
   avatar_url: string;
   handleUserDetail: (arg0: string) => void;
+}
+
+export interface IUserSearchResults {
+  count: number;
+  userSearch: IUsers[];
 }
 
 export interface IRepositoryDetail {

@@ -19,7 +19,7 @@ const SearchRepoList: React.FC<IBaseRepositoryProps> = ({
     handleRepositoryDetail(login, name);
   };
   return (
-    <Box>
+    <>
       <Box sx={{ display: "flex", m: "24px 0" }}>
         <ClassOutlined sx={{ p: "4px 8px" }} />
         <Box>
@@ -36,7 +36,7 @@ const SearchRepoList: React.FC<IBaseRepositoryProps> = ({
         </Box>
       </Box>
       <Divider />
-    </Box>
+    </>
   );
 };
 

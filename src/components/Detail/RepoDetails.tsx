@@ -12,14 +12,14 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { styled } from "@mui/material/styles";
 import millify from "millify";
-import { BookmarkContext } from "../store/bookmark-context";
-import DrawerCard from "../components/UI/DrawerCard";
-import MainCard from "../components/UI/MainCard";
-import DetailItem from "../components/Detail/DetailItem";
-import fork from "../assets/fork.svg";
-import branch from "../assets/branch.svg";
-import pullRequest from "../assets/request.svg";
-import { IRepoDetails } from "../types/types";
+import { BookmarkContext } from "../../store/bookmark-context";
+import DrawerCard from "../UI/DrawerCard";
+import MainCard from "../UI/MainCard";
+import DetailItem from "./DetailItem";
+import fork from "../../assets/fork.svg";
+import branch from "../../assets/branch.svg";
+import pullRequest from "../../assets/request.svg";
+import { IRepoDetails } from "../../types/types";
 
 const DetailBox = styled(Box)(({ theme }) => ({
   display: "flex",

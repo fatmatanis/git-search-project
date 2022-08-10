@@ -1,91 +1,34 @@
-import React, { Fragment, useContext, useState } from "react";
-import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
+import { Route, Routes } from "react-router-dom";
 
-import { BookmarkBorderSharp, TagFaces } from "@mui/icons-material";
-import { Divider, List } from "@mui/material";
 import axios, { AxiosError } from "axios";
-import { InputContex } from "../../store/input-context";
-import { BookmarkContext } from "../../store/bookmark-context";
+import { ResultContext } from "../../store/result-context";
 import Header from "../HeaderLayout/index";
 import Home from "../../pages/Home";
 import RepoMainView from "../RepositoryLayout/RepoMainView";
 import UserMainView from "../UserLayout/UserMainView";
-import DrawerCard from "../UI/DrawerCard";
-import SideListItem from "../UI/SideListItem";
-import RepoDetails from "../../pages/RepoDetails";
 import UserDetails from "../../pages/UserDetails";
 import Bookmarks from "../../pages/Bookmarks";
 import BookmarkedSearch from "../Bookmark";
 import Loading from "../UI/Loading";
 import Error from "../UI/Error";
-import note from "../../assets/note.svg";
-import {
-  IRepository,
-  IRepositoryDetail,
-  TotalCount,
-  IUsers,
-  IUsersDetail,
-} from "../../types/types";
+import RepositoryDetails from "../../pages/RepositoryDetails";
+import SideBar from "../UI/SideBar";
 
 const MainLayout = () => {
-  const [searchRepoResult, setSearchRepoResult] = useState<Array<IRepository>>(
-    []
-  );
-  const [searchUsers, setSearchUsers] = useState<Array<IUsers>>([]);
-  const [repoTotalCount, setRepoCount] = useState<TotalCount>({
-    total_count: 0,
-  });
-  const [usersCount, setUsersCount] = useState<TotalCount>({
-    total_count: 0,
-  });
-
-  const [repoDetail, setRepoDetail] = useState<IRepositoryDetail>();
-
-  const [userDetail, setUserDetail] = useState<IUsersDetail>();
-  const [userRepos, setUserRepos] = useState<Array<IRepository>>([]);
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  const { searchText } = useContext(InputContex);
-  const { bookmarkList } = useContext(BookmarkContext);
-
-  const navigate = useNavigate();
-
-  const repositoryResults = async () => {
-    return await axios.get(
-      `https://api.github.com/search/repositories?q=${searchText}`
-    );
-  };
-
-  const userResults = async () => {
-    return await axios.get(
-      `https://api.github.com/search/users?q=${searchText}`
-    );
-  };
-
-  const handleOnKeyDown = async (
-    event: React.KeyboardEvent<HTMLInputElement>
-  ) => {
-    if (event.key === "Enter" && searchText) {
-      setIsLoading(true);
-      try {
-        const [getRepo, getUser] = await Promise.all([
-          repositoryResults(),
-          userResults(),
-        ]);
-        setSearchRepoResult(getRepo.data.items);
-        setRepoCount(getRepo.data);
-        setSearchUsers(getUser.data.items);
-        setUsersCount(getUser.data);
-      } catch (error) {
-        const err = error as AxiosError;
-        setError(err.message);
-      }
-      setIsLoading(false);
-      navigate("results/repositories");
-    }
-  };
+  const {
+    repoResults,
+    userResults,
+    setRepoDetail,
+    userDetail,
+    setUserDetail,
+    userRepos,
+    setUserRepos,
+    isLoading,
+    setIsLoading,
+    error,
+    setError,
+  } = useContext(ResultContext);
 
   const getRepositoryDetail = async (
     selectedOwner: string,
@@ -131,18 +74,13 @@ const MainLayout = () => {
     setIsLoading(false);
   };
 
-  const foundBookmark =
-    bookmarkList.length > 0 &&
-    bookmarkList.filter((repo) =>
-      repo.fullName.toLowerCase().includes(searchText.toLowerCase())
-    );
   const handleErrorClose = () => {
     setError("");
   };
 
   return (
-    <Fragment>
-      <Header onKeyDown={handleOnKeyDown} />
+    <>
+      <Header />
 
       <Routes>
         <Route
@@ -158,51 +96,13 @@ const MainLayout = () => {
           path="/bookmarks"
           element={<Bookmarks getRepoDetail={getRepositoryDetail} />}
         />
-        <Route
-          path="/results"
-          element={
-            <>
-              {isLoading && <Loading />}
-              {error && <Error alertText={error} />}
-              {!isLoading && (
-                <>
-                  <DrawerCard>
-                    <List>
-                      <SideListItem
-                        count={repoTotalCount.total_count.toLocaleString()}
-                        to="repositories"
-                        icon={<img src={note} alt="note-icon" />}
-                        primary={"Repositories"}
-                      />
-                      <SideListItem
-                        count={usersCount.total_count.toLocaleString()}
-                        to="user"
-                        icon={<TagFaces />}
-                        primary={"Users"}
-                      />
-                      {foundBookmark && foundBookmark.length > 0 && (
-                        <SideListItem
-                          count={foundBookmark.length.toLocaleString()}
-                          to="bookmarked"
-                          icon={<BookmarkBorderSharp />}
-                          primary={"Bookmarked"}
-                        />
-                      )}
-                      <Divider />
-                    </List>
-                  </DrawerCard>
-                  <Outlet />
-                </>
-              )}
-            </>
-          }
-        >
+        <Route path="/results" element={<SideBar />}>
           <Route
             path="repositories"
             element={
               <RepoMainView
-                repoCount={repoTotalCount.total_count.toLocaleString()}
-                searchRepoResults={searchRepoResult}
+                repoCount={repoResults.count.toLocaleString()}
+                searchRepoResults={repoResults.repoSearch}
                 getRepoDetail={getRepositoryDetail}
               />
             }
@@ -211,8 +111,8 @@ const MainLayout = () => {
             path="user"
             element={
               <UserMainView
-                userCount={usersCount.total_count.toLocaleString()}
-                searchUsersResults={searchUsers}
+                userCount={userResults.count.toLocaleString()}
+                searchUsersResults={userResults.userSearch}
                 getUserDetail={getUserDetails}
               />
             }
@@ -224,33 +124,7 @@ const MainLayout = () => {
           />
         </Route>
 
-        <Route
-          path="repositories/:repoId"
-          element={
-            <>
-              {isLoading && <Loading />}
-              {error && (
-                <Error handleErrorClose={handleErrorClose} alertText={error} />
-              )}
-              {!isLoading && repoDetail && (
-                <RepoDetails
-                  id={repoDetail.id}
-                  fullName={repoDetail.full_name}
-                  description={repoDetail.description}
-                  link={repoDetail.clone_url}
-                  forks={repoDetail.forks}
-                  star={repoDetail.stargazers_count}
-                  branches={repoDetail.subscribers_count}
-                  issues={repoDetail.open_issues}
-                  watch={repoDetail.subscribers_count}
-                  pullRequests={repoDetail.subscribers_count}
-                  name={repoDetail.name}
-                  owner={repoDetail.owner.login}
-                />
-              )}
-            </>
-          }
-        />
+        <Route path="repositories/:repoId" element={<RepositoryDetails />} />
 
         <Route
           path="user/:userId"
@@ -275,7 +149,7 @@ const MainLayout = () => {
           }
         />
       </Routes>
-    </Fragment>
+    </>
   );
 };
 export default MainLayout;
