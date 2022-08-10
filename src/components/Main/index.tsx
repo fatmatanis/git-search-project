@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 
-import Header from "../HeaderLayout/index";
+import Header from "../HeaderLayout";
 import SideBar from "../UI/SideBar";
 import Home from "../../pages/Home";
 import Bookmarks from "../../pages/Bookmarks";
