@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 
-import { ResultContext } from "../../store/result-context";
 import Header from "../HeaderLayout/index";
 import SideBar from "../UI/SideBar";
 import Home from "../../pages/Home";
@@ -13,12 +12,6 @@ import Repositories from "../../pages/Repositories";
 import Users from "../../pages/Users";
 
 const MainLayout = () => {
-  const { setError } = useContext(ResultContext);
-
-  const handleErrorClose = () => {
-    setError("");
-  };
-
   return (
     <>
       <Header />

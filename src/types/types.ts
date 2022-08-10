@@ -114,5 +114,4 @@ export interface IUsersDetailProps {
 
 export type ErrorProps = {
   alertText: string;
-  handleErrorClose?: () => void;
 };
