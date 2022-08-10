@@ -112,10 +112,6 @@ export interface IUsersDetailProps {
   userRepositoryList: IRepository[];
 }
 
-export interface IBookmarkListProps {
-  getRepoDetail: (arg0: string, arg1: string) => void;
-}
-
 export type ErrorProps = {
   alertText: string;
   handleErrorClose?: () => void;

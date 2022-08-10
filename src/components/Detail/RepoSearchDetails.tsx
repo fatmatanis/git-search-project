@@ -52,7 +52,7 @@ const AddButton = styled(Button)(({ theme }) => ({
   color: theme.palette.primary.main,
 }));
 
-const RepoDetails: React.FC<IRepoDetails> = (props) => {
+const RepoSearchDetails: React.FC<IRepoDetails> = (props) => {
   const { addBookmarks, deleteBookmarks, bookmarkList } =
     useContext(BookmarkContext);
   const {
@@ -160,4 +160,4 @@ const RepoDetails: React.FC<IRepoDetails> = (props) => {
   );
 };
 
-export default RepoDetails;
+export default RepoSearchDetails;

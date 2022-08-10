@@ -5,10 +5,11 @@ import { Typography } from "@mui/material";
 import { BookmarkBorderSharp } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import { BookmarkContext } from "../store/bookmark-context";
+import useRepoDetail from "../hook/useRepoDetail";
 import SearchRepoList from "../components/RepositoryLayout/SearchRepoList";
 import DrawerCard from "../components/UI/DrawerCard";
 import MainCard from "../components/UI/MainCard";
-import { IBookmarkListProps, IRepoDetails } from "../types/types";
+import { IRepoDetails } from "../types/types";
 
 const SideBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -16,8 +17,9 @@ const SideBox = styled(Box)(({ theme }) => ({
   margin: theme.spacing(5, 0, 0, 6),
 }));
 
-const Bookmarks: React.FC<IBookmarkListProps> = ({ getRepoDetail }) => {
+const Bookmarks = () => {
   const { bookmarkList } = useContext(BookmarkContext);
+  const getRepositoryDetail = useRepoDetail(`https://api.github.com/repos/`);
 
   return (
     <>
@@ -41,7 +43,7 @@ const Bookmarks: React.FC<IBookmarkListProps> = ({ getRepoDetail }) => {
                 id={repo.id}
                 fullName={repo.fullName}
                 description={repo.description}
-                handleRepositoryDetail={getRepoDetail}
+                handleRepositoryDetail={getRepositoryDetail}
                 login={repo.owner}
                 name={repo.name}
               />

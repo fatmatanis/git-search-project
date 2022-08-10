@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import Loading from "../components/UI/Loading";
-import RepoDetails from "../components/Detail/RepoDetails";
-import Error from "../components/UI/Error";
 import { ResultContext } from "../store/result-context";
+import Loading from "../components/UI/Loading";
+import RepoSearchDetails from "../components/Detail/RepoSearchDetails";
+import Error from "../components/UI/Error";
 
 const RepositoryDetails = () => {
   const { repoDetail, isLoading, error } = useContext(ResultContext);
@@ -12,7 +12,7 @@ const RepositoryDetails = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <RepoDetails
+        <RepoSearchDetails
           id={repoDetail.id}
           fullName={repoDetail.full_name}
           description={repoDetail.description}
