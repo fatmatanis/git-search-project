@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
 import { Outlet } from "react-router-dom";
 import { TagFaces, BookmarkBorderSharp } from "@mui/icons-material";
-import { List, Divider } from "@mui/material";
+import { List, Divider, Box } from "@mui/material";
+import { ResultContext } from "../../store/result-context";
+import { BookmarkContext } from "../../store/bookmark-context";
+import { InputContex } from "../../store/input-context";
 import DrawerCard from "./DrawerCard";
 import Loading from "./Loading";
 import Error from "./Error";
 import SideListItem from "./SideListItem";
-import { ResultContext } from "../../store/result-context";
-import { BookmarkContext } from "../../store/bookmark-context";
-import { InputContex } from "../../store/input-context";
 import note from "../../assets/note.svg";
 
 const SideBar = () => {
@@ -28,7 +28,7 @@ const SideBar = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <>
+        <Box>
           <DrawerCard>
             <List>
               <SideListItem
@@ -55,7 +55,7 @@ const SideBar = () => {
             </List>
           </DrawerCard>
           <Outlet />
-        </>
+        </Box>
       )}
       {error && <Error alertText={error} />}
     </>

@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 
+import { ResultContext } from "../store/result-context";
 import UserSearchDetails from "../components/Detail/UserSearchDetails";
 import useRepoDetail from "../hook/useRepoDetail";
-import { ResultContext } from "../store/result-context";
 import Loading from "../components/UI/Loading";
 import Error from "../components/UI/Error";
 

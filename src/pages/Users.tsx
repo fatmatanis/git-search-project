@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 
 import axios, { AxiosError } from "axios";
-import UserMainView from "../components/UserLayout/UserMainView";
 import { ResultContext } from "../store/result-context";
+import UserMainView from "../components/UserLayout/UserMainView";
 
 const Users = () => {
   const { userResults, setUserDetail, setUserRepos, setIsLoading, setError } =

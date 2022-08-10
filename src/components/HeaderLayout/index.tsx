@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
+import axios, { AxiosError } from "axios";
 import AppBar from "@mui/material/AppBar";
 import SearchIcon from "@mui/icons-material/Search";
 import { BookmarkBorderSharp } from "@mui/icons-material";
+import { ResultContext } from "../../store/result-context";
 import { InputContex } from "../../store/input-context";
 import digieggs from "../../assets/digieggs.png";
 import {
@@ -15,8 +17,6 @@ import {
   SearchIconWrapper,
   StyledInputBase,
 } from "./styles";
-import { ResultContext } from "../../store/result-context";
-import axios, { AxiosError } from "axios";
 
 const Header = () => {
   const { searchText, handleChange } = useContext(InputContex);
