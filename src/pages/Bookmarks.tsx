@@ -34,7 +34,6 @@ const Bookmarks = () => {
           </Typography>
         </SideBox>
       </DrawerCard>
-
       <MainCard>
         {bookmarkList.length > 0
           ? bookmarkList.map((repo: IRepoDetails) => (
