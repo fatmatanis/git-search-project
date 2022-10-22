@@ -39,16 +39,16 @@ export interface IRepoMainViewProps {
   getRepoDetail: (arg0: string, arg1: string) => void;
 }
 
-export interface IUserMainViewProps {
-  searchUsersResults: IUsers[];
-  userCount: string;
-  getUserDetail: (arg0: string) => void;
-}
 export interface IUsers {
   id: number;
   login: string;
   avatar_url: string;
   handleUserDetail: (arg0: string) => void;
+}
+export interface IUserMainViewProps {
+  searchUsersResults: IUsers[];
+  userCount: string;
+  getUserDetail: (arg0: string) => void;
 }
 
 export interface IUserSearchResults {
