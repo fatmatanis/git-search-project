@@ -11,11 +11,7 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { ErrorSharp } from "@mui/icons-material";
-
-type ErrorProps = {
-  alertText: string;
-  handleErrorClose?: () => void;
-};
+import { ErrorProps } from "../../types/types";
 
 const Error: React.FC<ErrorProps> = ({ alertText, handleErrorClose }) => {
   const [open, setOpen] = React.useState(true);

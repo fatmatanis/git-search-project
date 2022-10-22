@@ -2,16 +2,19 @@ import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 
 import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
 import SearchIcon from "@mui/icons-material/Search";
-import { Typography } from "@mui/material";
 import { BookmarkBorderSharp } from "@mui/icons-material";
 import { InputContex } from "../../store/input-context";
-import { Search, SearchIconWrapper, StyledInputBase } from "./SearchStyle";
+import {
+  BookmarkLink,
+  BookmarkTypography,
+  CustomToolbar,
+  Img,
+  Search,
+  SearchIconWrapper,
+  StyledInputBase,
+} from "./HeaderStyles";
 import digieggs from "../../assets/digieggs.png";
-import classes from "./Header.module.css";
-
-import "@fontsource/roboto/400.css";
 
 interface IHeaderProps {
   onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void;
@@ -30,9 +33,9 @@ const Header: React.FC<IHeaderProps> = (props) => {
         bgcolor: "#375f9d",
       }}
     >
-      <Toolbar className={classes.toolbar}>
+      <CustomToolbar>
         <NavLink to="/">
-          <img src={digieggs} alt="Digieggs logo" />
+          <Img src={digieggs} alt="Digieggs logo" />
         </NavLink>
         <Search>
           <SearchIconWrapper>
@@ -46,8 +49,7 @@ const Header: React.FC<IHeaderProps> = (props) => {
             onChange={handleChange}
           />
         </Search>
-        <NavLink
-          className={classes.navLink}
+        <BookmarkLink
           to="bookmarks"
           style={({ isActive }) =>
             isActive
@@ -56,15 +58,9 @@ const Header: React.FC<IHeaderProps> = (props) => {
           }
         >
           <BookmarkBorderSharp />
-          <Typography
-            variant="body1"
-            component="div"
-            className={classes.bookmark}
-          >
-            Bookmarks
-          </Typography>
-        </NavLink>
-      </Toolbar>
+          <BookmarkTypography variant="body1">Bookmarks</BookmarkTypography>
+        </BookmarkLink>
+      </CustomToolbar>
     </AppBar>
   );
 };

@@ -1,47 +1,49 @@
 import React from "react";
 import { Link, LinkProps } from "react-router-dom";
-
-import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import classes from "./SideListItem.module.css";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import { styled } from "@mui/material/styles";
+import { ListItemButton, Typography } from "@mui/material";
+import { theme } from "../../styles/themes";
+import { IListItemLinkProps } from "../../types/types";
 
-interface ListItemLinkProps {
-  icon: React.ReactElement;
-  primary: string;
-  count: string;
-  to: string;
-}
-const SideListItem: React.FC<ListItemLinkProps> = (props) => {
-  const { icon, primary, count, to } = props;
+const CustomListItem = styled(ListItem)(({ theme }) => ({
+  flexDirection: "row",
+  backgroundColor: theme.palette.info.main,
+}));
 
+const SideListItem: React.FC<IListItemLinkProps> = ({
+  icon,
+  primary,
+  count,
+  to,
+}) => {
   const renderLink = React.useMemo(
     () =>
       React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "to">>(
         function RouterLink(itemProps, ref) {
-          return <Link to={to} ref={ref} {...itemProps} role={undefined} />;
+          return <Link to={to} ref={ref} {...itemProps} />;
         }
       ),
     [to]
   );
   return (
-    <List>
-      <ListItem
-        button
+    <CustomListItem disablePadding>
+      <ListItemButton
         component={renderLink}
-        className={classes.button}
-        disablePadding
+        sx={{
+          "&:focus": {
+            backgroundColor: theme.palette.info.light,
+            color: "#375f9d",
+          },
+        }}
       >
-        <ListItemIcon className={classes.icon}>{icon}</ListItemIcon>
-        <div className={classes.primary}>
-          <ListItemText primary={primary} />
-        </div>
-        <div className={classes.count}>
-          <ListItemText primary={count} />
-        </div>
-      </ListItem>
-    </List>
+        <ListItemIcon>{icon}</ListItemIcon>
+        <ListItemText primary={primary} />
+        <Typography>{count}</Typography>
+      </ListItemButton>
+    </CustomListItem>
   );
 };
 export default SideListItem;

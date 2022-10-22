@@ -6,7 +6,6 @@ import { ClassOutlined } from "@mui/icons-material";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import { IBaseRepositoryProps } from "../../types/types";
-import classes from "./SearchRepoList.module.css";
 
 const SearchRepoList: React.FC<IBaseRepositoryProps> = ({
   handleRepositoryDetail,
@@ -21,21 +20,19 @@ const SearchRepoList: React.FC<IBaseRepositoryProps> = ({
   };
   return (
     <>
-      <Box className={classes.box}>
-        <ClassOutlined />
-        <Box className={classes.detail}>
+      <Box sx={{ display: "flex", m: "24px 0" }}>
+        <ClassOutlined sx={{ p: "4px 8px" }} />
+        <Box>
           <Link
             to={`/repositories/${id}`}
-            className={classes.link}
+            style={{ textDecoration: "none" }}
             onClick={getRepository}
           >
-            <Typography variant="h6" component="div" className={classes.name}>
+            <Typography variant="h6" color="secondary.light">
               {fullName}
             </Typography>
           </Link>
-          <Typography variant="body1" gutterBottom component="div">
-            {description}
-          </Typography>
+          <Typography variant="body1">{description}</Typography>
         </Box>
       </Box>
       <Divider />

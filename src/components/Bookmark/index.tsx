@@ -20,19 +20,17 @@ const BookmarkedSearch: React.FC<IBookmarkListProps> = ({ getRepoDetail }) => {
       <Typography variant="h5" gutterBottom component="div">
         {`${foundBookmark.length} Bookmarked Repository Results`}
       </Typography>
-      {foundBookmark.map((repo: IRepoDetailsProps) => {
-        return (
-          <SearchRepoList
-            key={repo.id}
-            id={repo.id}
-            fullName={repo.fullName}
-            description={repo.description}
-            handleRepositoryDetail={getRepoDetail}
-            login={repo.owner}
-            name={repo.name}
-          />
-        );
-      })}
+      {foundBookmark.map((repo: IRepoDetailsProps) => (
+        <SearchRepoList
+          key={repo.id}
+          id={repo.id}
+          fullName={repo.fullName}
+          description={repo.description}
+          handleRepositoryDetail={getRepoDetail}
+          login={repo.owner}
+          name={repo.name}
+        />
+      ))}
     </MainCard>
   );
 };
