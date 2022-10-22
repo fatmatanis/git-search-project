@@ -1,81 +1,31 @@
-import React from "react";
+import React, { useContext } from "react";
 
-import { Box, Typography } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import DrawerCard from "../components/UI/DrawerCard";
-import MainCard from "../components/UI/MainCard";
-import SearchRepoList from "../components/RepositoryLayout/SearchRepoList";
-import { IRepository, IUsersDetailProps } from "../types/types";
+import { ResultContext } from "../store/result-context";
+import UserSearchDetails from "../components/Detail/UserSearchDetails";
+import useRepoDetail from "../hook/useRepoDetail";
+import Loading from "../components/UI/Loading";
+import Error from "../components/UI/Error";
 
-const UserInfo = styled(Box)(({ theme }) => ({
-  margin: theme.spacing(3, 8),
-}));
+const UserDetails = () => {
+  const { userDetail, userRepos, isLoading, error } = useContext(ResultContext);
+  const getRepositoryDetail = useRepoDetail(`https://api.github.com/repos/`);
 
-const UserAvatar = styled("img")(({ theme }) => ({
-  width: "80%",
-  borderRadius: "50%",
-  margin: theme.spacing(3, 0),
-}));
-
-const UserRepo = styled(Box)({
-  display: "flex",
-  flexDirection: "row",
-});
-
-const RepoCount = styled(Box)(({ theme }) => ({
-  border: "1px solid",
-  borderRadius: "4px",
-  padding: theme.spacing(0.5, 4, 1),
-  height: "1rem",
-  color: theme.palette.secondary.dark,
-}));
-
-const UserDetails: React.FC<IUsersDetailProps> = ({
-  getRepoDetail,
-  avatar,
-  name,
-  login,
-  bio,
-  userRepoCount,
-  userRepositoryList,
-}) => {
   return (
     <>
-      <DrawerCard>
-        <UserInfo>
-          <UserAvatar src={avatar} alt="User Avatar" />
-          <Typography variant="h5" component="div">
-            {name}
-          </Typography>
-          <Typography variant="subtitle2" component="div" color="primary.light">
-            {login}
-          </Typography>
-          <Typography variant="subtitle2" component="div">
-            {bio}
-          </Typography>
-        </UserInfo>
-      </DrawerCard>
-      <MainCard>
-        <UserRepo>
-          <Typography variant="h5" gutterBottom component="div" sx={{ mr: 1 }}>
-            Repositories
-          </Typography>
-          <RepoCount>
-            <Typography variant="subtitle2">{userRepoCount}</Typography>
-          </RepoCount>
-        </UserRepo>
-        {userRepositoryList.map((item: IRepository) => (
-          <SearchRepoList
-            key={item.id}
-            id={item.id}
-            fullName={item.full_name}
-            description={item.description}
-            handleRepositoryDetail={getRepoDetail}
-            login={item.owner.login}
-            name={item.name}
-          />
-        ))}
-      </MainCard>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <UserSearchDetails
+          avatar={userDetail.avatar_url}
+          name={userDetail.name}
+          login={userDetail.login}
+          bio={userDetail.bio}
+          userRepoCount={userDetail.public_repos}
+          userRepositoryList={userRepos}
+          getRepoDetail={getRepositoryDetail}
+        />
+      )}
+      {error && <Error alertText={error} />}
     </>
   );
 };

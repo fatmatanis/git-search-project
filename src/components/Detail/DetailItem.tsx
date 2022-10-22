@@ -23,15 +23,13 @@ const DetailNumber = styled(Typography)(({ theme }) => ({
   margin: theme.spacing(0.5, 0),
 }));
 
-const DetailItem: React.FC<IDetailItemProps> = (props) => {
+const DetailItem: React.FC<IDetailItemProps> = ({ icon, text, number }) => {
   return (
-    <>
-      <Grid container>
-        <Icon>{props.icon}</Icon>
-        <DetailText variant="subtitle1">{props.text}</DetailText>
-        <DetailNumber variant="subtitle1">{props.number}</DetailNumber>
-      </Grid>
-    </>
+    <Grid container>
+      <Icon>{icon}</Icon>
+      <DetailText variant="subtitle1">{text}</DetailText>
+      <DetailNumber variant="subtitle1">{number}</DetailNumber>
+    </Grid>
   );
 };
 

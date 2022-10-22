@@ -28,17 +28,32 @@ export type TotalCount = {
   total_count: number;
 };
 
+export interface IRepoSearchResults {
+  count: number;
+  repoSearch: IRepository[];
+}
+
 export interface IRepoMainViewProps {
   searchRepoResults: IRepository[];
   repoCount: string;
   getRepoDetail: (arg0: string, arg1: string) => void;
 }
 
+export interface IUserMainViewProps {
+  searchUsersResults: IUsers[];
+  userCount: string;
+  getUserDetail: (arg0: string) => void;
+}
 export interface IUsers {
   id: number;
   login: string;
   avatar_url: string;
   handleUserDetail: (arg0: string) => void;
+}
+
+export interface IUserSearchResults {
+  count: number;
+  userSearch: IUsers[];
 }
 
 export interface IRepositoryDetail {
@@ -58,17 +73,17 @@ export interface IRepositoryDetail {
   };
 }
 
-export interface IRepoDetailsProps {
+export interface IRepoDetails {
   owner: string;
   name: string;
   id: number;
   fullName: string;
   watch: number;
   star: number;
-  fork: number;
-  branch: number;
+  forks: number;
+  branches: number;
   issues: number;
-  pullRequest: number;
+  pullRequests: number;
   description: string;
   link: string;
 }
@@ -97,11 +112,6 @@ export interface IUsersDetailProps {
   userRepositoryList: IRepository[];
 }
 
-export interface IBookmarkListProps {
-  getRepoDetail: (arg0: string, arg1: string) => void;
-}
-
 export type ErrorProps = {
   alertText: string;
-  handleErrorClose?: () => void;
 };
