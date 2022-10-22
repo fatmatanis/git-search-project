@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
@@ -11,14 +11,17 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { ErrorSharp } from "@mui/icons-material";
+import { ResultContext } from "../../store/result-context";
 import { ErrorProps } from "../../types/types";
 
-const Error: React.FC<ErrorProps> = ({ alertText, handleErrorClose }) => {
+const Error: React.FC<ErrorProps> = ({ alertText }) => {
   const [open, setOpen] = React.useState(true);
+
+  const { setError } = useContext(ResultContext);
 
   const handleClose = () => {
     setOpen(false);
-    handleErrorClose && handleErrorClose();
+    setError("");
   };
 
   return (

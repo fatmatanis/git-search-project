@@ -5,8 +5,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { styled } from "@mui/material/styles";
 import { ListItemButton, Typography } from "@mui/material";
-import { theme } from "../../styles/themes";
 import { IListItemLinkProps } from "../../types/types";
+import { theme } from "../../styles/themes";
 
 const CustomListItem = styled(ListItem)(({ theme }) => ({
   flexDirection: "row",
